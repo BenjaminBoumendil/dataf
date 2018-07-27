@@ -1,15 +1,15 @@
 # DataF
 
-[![Documentation Status](https://readthedocs.org/projects/dataf/badge/?version=latest)](https://dataf.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/dataf/badge/?version=latest)](https://dataf.readthedocs.io/en/latest/?badge=latest) [![Build Status](https://travis-ci.org/BenjaminBoumendil/dataf.svg?branch=master)](https://travis-ci.org/BenjaminBoumendil/dataf)
 
 
 DataF is a framework to create data oriented project in a fast way.
 
 - Data and database manipulation using SQLAlchemy.
 - Creating Web application using Flask.
-- Creating CLI using argparse.
-- Logging using logging.
+- Creating CLI.
 - Clean settings using Yaml.
+- Logging.
 
 
 Dependencies:
