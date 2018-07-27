@@ -1,6 +1,6 @@
 # DataF
 
-DataF is a Framework to create data oriented project in a fast way.
+DataF is a framework to create data oriented project in a fast way.
 
 - Data and database manipulation using SQLAlchemy.
 - Creating Web application using Flask.
@@ -13,21 +13,21 @@ Take a look a the full documentation for more: WIP
 
 
 Dependencies:
-    python >= 3.5
-    SQLAlchemy
-    PyYAML
-    slackclient
-    flask
-    flasgger
-    docutils
-    mako
+- python >= 3.5
+- SQLAlchemy
+- PyYAML
+- slackclient
+- flask
+- flasgger
+- docutils
+- mako
 
 
 Quick install:
 
-    $ pip install dataf
+    pip install dataf
 
 
 Create project:
 
-    $ dataf create_project name
+    dataf create_project name
