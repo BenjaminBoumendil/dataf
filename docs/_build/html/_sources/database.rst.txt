@@ -1,0 +1,10 @@
+Database
+========
+
+Database manipulation class.
+
+
+.. automodule:: database_manager
+    :members:
+.. automodule:: database_singleton
+    :members:

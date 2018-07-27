@@ -1,6 +1,6 @@
 .PHONY: install upload doc clean re
 
-DOC_DIR = doc
+DOC_DIR = docs
 
 UPLOAD_URL = https://test.pypi.org/legacy/
 

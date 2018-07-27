@@ -1,0 +1,827 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>References &#8212; DataF 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Settings" href="settings.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="references">
+<h1>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h1>
+<p>All class references.</p>
+<div class="section" id="database">
+<h2>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h2>
+<p>Database manipulation class.</p>
+<span class="target" id="module-database_manager"></span><div class="section" id="database-manager">
+<h3>Database manager<a class="headerlink" href="#database-manager" title="Permalink to this headline">¶</a></h3>
+<p>Handle database basic operation using sqlalchemy.</p>
+<p>Logs all error in exception object.
+exception.logger: logger object.
+exception.message: error message.</p>
+<dl class="class">
+<dt id="database_manager.DatabaseManager">
+<em class="property">class </em><code class="descclassname">database_manager.</code><code class="descname">DatabaseManager</code><span class="sig-paren">(</span><em>configuration</em>, <em>prefix=''</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database_manager.DatabaseManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manage database interaction, Logs all error.</p>
+<dl class="method">
+<dt id="database_manager.DatabaseManager.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="headerlink" href="#database_manager.DatabaseManager.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add one entity into current database, flush and expunge it.
+Raise and log exception in case of error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>entity</strong> (<em>obj</em>) – Entity class with data to feed database.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_manager.DatabaseManager.add_all">
+<code class="descname">add_all</code><span class="sig-paren">(</span><em>entities</em><span class="sig-paren">)</span><a class="headerlink" href="#database_manager.DatabaseManager.add_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add list of entity into current database, flush and expunge it.
+Raise and log exception in case of error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>entities</strong> (<em>list</em>) – List of entity class with data to feed.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_manager.DatabaseManager.bulk_insert_mappings">
+<code class="descname">bulk_insert_mappings</code><span class="sig-paren">(</span><em>obj</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#database_manager.DatabaseManager.bulk_insert_mappings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a bulk insert of data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>obj</strong> (<em>obj</em>) – Class representing table schema.</li>
+<li><strong>data</strong> (<em>list</em>) – list of dict representing data to add.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_manager.DatabaseManager.bulk_save_objects">
+<code class="descname">bulk_save_objects</code><span class="sig-paren">(</span><em>data</em>, <em>return_defaults=False</em><span class="sig-paren">)</span><a class="headerlink" href="#database_manager.DatabaseManager.bulk_save_objects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a bulk save of data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>list</em>) – list of table object with data to add.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_manager.DatabaseManager.create_schema">
+<code class="descname">create_schema</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#database_manager.DatabaseManager.create_schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create given schema, log and raise exception in case of error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – name of schema.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_manager.DatabaseManager.create_table_obj">
+<code class="descname">create_table_obj</code><span class="sig-paren">(</span><em>name</em>, <em>*</em>, <em>schema=None</em>, <em>autoload=True</em><span class="sig-paren">)</span><a class="headerlink" href="#database_manager.DatabaseManager.create_table_obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an sqlalchemy table object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<em>str</em>) – name of table.</li>
+<li><strong>schema</strong> (<em>str</em>) – table schema name. Default to None.</li>
+<li><strong>autoload</strong> (<em>bool</em>) – autoload table structure. Default to True.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_manager.DatabaseManager.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>entity</em>, <em>merge=False</em><span class="sig-paren">)</span><a class="headerlink" href="#database_manager.DatabaseManager.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete one entry, raise and log exception in case of error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>entity</strong> (<em>obj</em>) – Entity instance to delete.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_manager.DatabaseManager.drop_schema">
+<code class="descname">drop_schema</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#database_manager.DatabaseManager.drop_schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drop given schema, log and raise exception in case of error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – name of schema.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_manager.DatabaseManager.entity_exists">
+<code class="descname">entity_exists</code><span class="sig-paren">(</span><em>filter</em><span class="sig-paren">)</span><a class="headerlink" href="#database_manager.DatabaseManager.entity_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if an entity exists on given filter, raise exception in case of error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>entity</strong> (<em>obj</em>) – filter to apply to where clause.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if exists otherwise False.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_manager.DatabaseManager.map_tables">
+<code class="descname">map_tables</code><span class="sig-paren">(</span><em>tables</em>, <em>*</em>, <em>schema=None</em><span class="sig-paren">)</span><a class="headerlink" href="#database_manager.DatabaseManager.map_tables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Map tables into python object, log and raise exception in case of error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>tables</strong> (<em>list</em>) – list of tables name to map.</li>
+<li><strong>schema</strong> (<em>str</em>) – table schema name. Default to None.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">list of python object containing tables schemas.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_manager.DatabaseManager.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>table</em><span class="sig-paren">)</span><a class="headerlink" href="#database_manager.DatabaseManager.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read all entry for one table, expunge and return it.
+Raise and log exception in case of error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table</strong> (<em>obj</em>) – Entity class with table schema.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of database entry as entity class. None in case of error.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_manager.DatabaseManager.schema_exists">
+<code class="descname">schema_exists</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#database_manager.DatabaseManager.schema_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if schema exists.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – schema name.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if exists otherwise False.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_manager.DatabaseManager.session">
+<code class="descname">session</code><span class="sig-paren">(</span><em>*</em>, <em>raise_err=True</em>, <em>session_config=None</em><span class="sig-paren">)</span><a class="headerlink" href="#database_manager.DatabaseManager.session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Context manager for session, yield a session then commit,
+in case of error log exception and rollback session.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>raise_err</strong> (<em>bool</em>) – raise exception in case of error if True. Default to True.</li>
+<li><strong>session_config</strong> (<em>dict</em>) – session configuration.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_manager.DatabaseManager.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>entity</em>, <em>keys</em><span class="sig-paren">)</span><a class="headerlink" href="#database_manager.DatabaseManager.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update entity, select by id. Raise and log exception in case of error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>entity</strong> (<em>obj</em>) – entity object to update.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Paran list keys:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">list of keys to update.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-database_singleton"></span><div class="section" id="database-singleton">
+<h3>Database singleton<a class="headerlink" href="#database-singleton" title="Permalink to this headline">¶</a></h3>
+<p>Singleton who store a database manager.</p>
+<dl class="class">
+<dt id="database_singleton.DatabaseSingleton">
+<em class="property">class </em><code class="descclassname">database_singleton.</code><code class="descname">DatabaseSingleton</code><span class="sig-paren">(</span><em>configuration</em>, <em>prefix=''</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database_singleton.DatabaseSingleton" title="Permalink to this definition">¶</a></dt>
+<dd><p>Singleton for database manager.
+Use this class like a DatabaseManager.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Attr instance:</th><td class="field-body">_DatabaseSingleton instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="entity">
+<h2>Entity<a class="headerlink" href="#entity" title="Permalink to this headline">¶</a></h2>
+<p>Create database entity.</p>
+<span class="target" id="module-abc_entity"></span><div class="section" id="abstract-entity">
+<h3>Abstract entity<a class="headerlink" href="#abstract-entity" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="abc_entity.ABCEntity">
+<em class="property">class </em><code class="descclassname">abc_entity.</code><code class="descname">ABCEntity</code><a class="headerlink" href="#abc_entity.ABCEntity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract entity to represent table schema.
+Contains base method to handle table.</p>
+<dl class="classmethod">
+<dt id="abc_entity.ABCEntity.create">
+<em class="property">classmethod </em><code class="descname">create</code><span class="sig-paren">(</span><em>db</em><span class="sig-paren">)</span><a class="headerlink" href="#abc_entity.ABCEntity.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create table in database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>db</strong> (<em>obj</em>) – DatabaseManager.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="abc_entity.ABCEntity.drop">
+<em class="property">classmethod </em><code class="descname">drop</code><span class="sig-paren">(</span><em>db</em><span class="sig-paren">)</span><a class="headerlink" href="#abc_entity.ABCEntity.drop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drop table in database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>db</strong> (<em>obj</em>) – DatabaseManager.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="abc_entity.ABCEntity.exists">
+<em class="property">classmethod </em><code class="descname">exists</code><span class="sig-paren">(</span><em>db</em><span class="sig-paren">)</span><a class="headerlink" href="#abc_entity.ABCEntity.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if tables exists in database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>db</strong> (<em>obj</em>) – DatabaseManager.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if exists otherwise False.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-base_entity"></span><div class="section" id="base-entity">
+<h3>Base entity<a class="headerlink" href="#base-entity" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="flask">
+<h2>Flask<a class="headerlink" href="#flask" title="Permalink to this headline">¶</a></h2>
+<p>Handle flask server.</p>
+<span class="target" id="module-flask_engine"></span><div class="section" id="flask-engine">
+<h3>Flask engine<a class="headerlink" href="#flask-engine" title="Permalink to this headline">¶</a></h3>
+<p>Engine for web server with Flask and swagger.</p>
+<dl class="class">
+<dt id="flask_engine.FlaskEngine">
+<em class="property">class </em><code class="descclassname">flask_engine.</code><code class="descname">FlaskEngine</code><span class="sig-paren">(</span><em>views</em>, <em>swagger_config</em><span class="sig-paren">)</span><a class="headerlink" href="#flask_engine.FlaskEngine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle flask app with swagger.</p>
+<dl class="method">
+<dt id="flask_engine.FlaskEngine.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flask_engine.FlaskEngine.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main logic, used by CLI.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+<p>Custom logging setup and utils.</p>
+<span class="target" id="module-logging_decorator"></span><div class="section" id="logging-decorator">
+<h3>Logging decorator<a class="headerlink" href="#logging-decorator" title="Permalink to this headline">¶</a></h3>
+<p>Suite of decorator for logging.</p>
+<dl class="function">
+<dt id="logging_decorator.err_lambda_logger">
+<code class="descclassname">logging_decorator.</code><code class="descname">err_lambda_logger</code><span class="sig-paren">(</span><em>level</em>, <em>*</em>, <em>start=None</em>, <em>end=None</em>, <em>err=None</em>, <em>log_err=True</em><span class="sig-paren">)</span><a class="headerlink" href="#logging_decorator.err_lambda_logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for logging before and after function execution.
+Decorated function must be method in class with logger attribute.
+Log with exception level if decorated func raise an exception.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>level</strong> (<em>str</em>) – level of logger.</li>
+<li><strong>start</strong> (<em>func</em>) – string to log before function exec, default: None.</li>
+<li><strong>end</strong> (<em>func</em>) – string to log after function exec, default: None.</li>
+<li><strong>err</strong> (<em>func</em>) – string to log if exception is raised, default: None.</li>
+<li><strong>log_err</strong> (<em>bool</em>) – log error if True, default: True.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="logging_decorator.err_simple_logger">
+<code class="descclassname">logging_decorator.</code><code class="descname">err_simple_logger</code><span class="sig-paren">(</span><em>level</em>, <em>*</em>, <em>start=None</em>, <em>end=None</em>, <em>err=None</em>, <em>log_err=True</em><span class="sig-paren">)</span><a class="headerlink" href="#logging_decorator.err_simple_logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for logging before and after function execution.
+Decorated function must be method in class with logger attribute.
+Log with exception level if decorated func raise an exception.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>level</strong> (<em>str</em>) – level of logger.</li>
+<li><strong>start</strong> (<em>str</em>) – string to log before function exec, default: None.</li>
+<li><strong>end</strong> (<em>str</em>) – string to log after function exec, default: None.</li>
+<li><strong>err</strong> (<em>str</em>) – string to log if exception is raised, default: None.</li>
+<li><strong>log_err</strong> (<em>bool</em>) – log error if True, default: True.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="logging_decorator.lambda_logger">
+<code class="descclassname">logging_decorator.</code><code class="descname">lambda_logger</code><span class="sig-paren">(</span><em>level</em>, <em>*</em>, <em>start=None</em>, <em>end=None</em>, <em>err=None</em><span class="sig-paren">)</span><a class="headerlink" href="#logging_decorator.lambda_logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for logging before and after function execution.
+Decorated function must be method in class with logger attribute.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>level</strong> (<em>str</em>) – level of logger.</li>
+<li><strong>start</strong> (<em>func</em>) – string to log before function exec, default: None.</li>
+<li><strong>end</strong> (<em>func</em>) – string to log after function exec, default: None.</li>
+<li><strong>err</strong> (<em>func</em>) – string to log if exception is raised, default: None.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="logging_decorator.simple_logger">
+<code class="descclassname">logging_decorator.</code><code class="descname">simple_logger</code><span class="sig-paren">(</span><em>level</em>, <em>*</em>, <em>start=None</em>, <em>end=None</em>, <em>err=None</em><span class="sig-paren">)</span><a class="headerlink" href="#logging_decorator.simple_logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for logging before and after function execution.
+Decorated function must be method in class with logger attribute.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>level</strong> (<em>str</em>) – level of logger.</li>
+<li><strong>start</strong> (<em>str</em>) – string to log before function exec, default: None.</li>
+<li><strong>end</strong> (<em>str</em>) – string to log after function exec, default: None.</li>
+<li><strong>err</strong> (<em>str</em>) – string to log if exception is raised, default: None.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<span class="target" id="module-logging_filters"></span><div class="section" id="logging-filters">
+<h3>Logging filters<a class="headerlink" href="#logging-filters" title="Permalink to this headline">¶</a></h3>
+<p>Custom filters for logging</p>
+<dl class="class">
+<dt id="logging_filters.LvlFilter">
+<em class="property">class </em><code class="descclassname">logging_filters.</code><code class="descname">LvlFilter</code><span class="sig-paren">(</span><em>low</em>, <em>high</em><span class="sig-paren">)</span><a class="headerlink" href="#logging_filters.LvlFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Custom filter based on level.</p>
+<dl class="method">
+<dt id="logging_filters.LvlFilter.filter">
+<code class="descname">filter</code><span class="sig-paren">(</span><em>record</em><span class="sig-paren">)</span><a class="headerlink" href="#logging_filters.LvlFilter.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine if the specified record is to be logged.</p>
+<p>Is the specified record to be logged? Returns 0 for no, nonzero for
+yes. If deemed appropriate, the record may be modified in-place.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-logging_handlers"></span><div class="section" id="logging-handlers">
+<h3>Logging handlers<a class="headerlink" href="#logging-handlers" title="Permalink to this headline">¶</a></h3>
+<p>Custom handlers for logging.</p>
+<dl class="class">
+<dt id="logging_handlers.SlackHandler">
+<em class="property">class </em><code class="descclassname">logging_handlers.</code><code class="descname">SlackHandler</code><span class="sig-paren">(</span><em>token</em>, <em>channel</em>, <em>proxies</em><span class="sig-paren">)</span><a class="headerlink" href="#logging_handlers.SlackHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handler for slack.</p>
+<dl class="method">
+<dt id="logging_handlers.SlackHandler.emit">
+<code class="descname">emit</code><span class="sig-paren">(</span><em>record</em><span class="sig-paren">)</span><a class="headerlink" href="#logging_handlers.SlackHandler.emit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send message on slack channel.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-logging_level"></span><div class="section" id="logging-level">
+<h3>Logging level<a class="headerlink" href="#logging-level" title="Permalink to this headline">¶</a></h3>
+<p>Custom level for logging.</p>
+<dl class="class">
+<dt id="logging_level.LoggingLevel">
+<em class="property">class </em><code class="descclassname">logging_level.</code><code class="descname">LoggingLevel</code><a class="headerlink" href="#logging_level.LoggingLevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Custom logging level.
+All method are static so they can dynamically inherit from the logger they are used by.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Attr dict name_to_level:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">static dict to define reference between name and level.</td>
+</tr>
+</tbody>
+</table>
+<dl class="staticmethod">
+<dt id="logging_level.LoggingLevel.mail">
+<em class="property">static </em><code class="descname">mail</code><span class="sig-paren">(</span><em>self</em>, <em>message</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#logging_level.LoggingLevel.mail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Custom level for mail logging.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="logging_level.LoggingLevel.slack">
+<em class="property">static </em><code class="descname">slack</code><span class="sig-paren">(</span><em>self</em>, <em>message</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#logging_level.LoggingLevel.slack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Custon level for slack logging.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="parser">
+<h2>Parser<a class="headerlink" href="#parser" title="Permalink to this headline">¶</a></h2>
+<p>Parser.</p>
+<span class="target" id="module-arg_parser"></span><div class="section" id="arg-parser">
+<h3>Arg parser<a class="headerlink" href="#arg-parser" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="arg_parser.ArgParser">
+<em class="property">class </em><code class="descclassname">arg_parser.</code><code class="descname">ArgParser</code><span class="sig-paren">(</span><em>parser_options</em>, <em>commands</em><span class="sig-paren">)</span><a class="headerlink" href="#arg_parser.ArgParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic arg parser.</p>
+<dl class="method">
+<dt id="arg_parser.ArgParser.parse">
+<code class="descname">parse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#arg_parser.ArgParser.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse command argument.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="arg_parser.ArgParser.parse_docstring">
+<code class="descname">parse_docstring</code><span class="sig-paren">(</span><em>source</em><span class="sig-paren">)</span><a class="headerlink" href="#arg_parser.ArgParser.parse_docstring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse docstring to get all args and attached docstring.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>source</strong> (<em>str</em>) – docstring to parse.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="arg_parser.ArgParser.setup_sub_pars">
+<code class="descname">setup_sub_pars</code><span class="sig-paren">(</span><em>sub_pars</em>, <em>signature</em>, <em>docstring</em><span class="sig-paren">)</span><a class="headerlink" href="#arg_parser.ArgParser.setup_sub_pars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup one sub parser.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sub_pars</strong> (<em>obj</em>) – sub parser to setup.</li>
+<li><strong>signature</strong> (<em>obj</em>) – func signature.</li>
+<li><strong>docstring</strong> (<em>obj</em>) – func docstring.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-yaml_parser"></span><div class="section" id="yaml-parser">
+<h3>Yaml parser<a class="headerlink" href="#yaml-parser" title="Permalink to this headline">¶</a></h3>
+<p>Yaml parsing and setup.</p>
+<dl class="class">
+<dt id="yaml_parser.YamlConstructor">
+<em class="property">class </em><code class="descclassname">yaml_parser.</code><code class="descname">YamlConstructor</code><a class="headerlink" href="#yaml_parser.YamlConstructor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Custom Yaml constructor.</p>
+<dl class="staticmethod">
+<dt id="yaml_parser.YamlConstructor.simple_join">
+<em class="property">static </em><code class="descname">simple_join</code><span class="sig-paren">(</span><em>loader</em>, <em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#yaml_parser.YamlConstructor.simple_join" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yaml join list of string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>loader</strong> (<em>obj</em>) – PyYaml Loader.</li>
+<li><strong>node</strong> (<em>obj</em>) – Pyyaml node.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">joined string.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="yaml_parser.YamlConstructor.string_join">
+<em class="property">static </em><code class="descname">string_join</code><span class="sig-paren">(</span><em>loader</em>, <em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#yaml_parser.YamlConstructor.string_join" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yaml join list of string by given string as first param.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>loader</strong> (<em>obj</em>) – PyYaml Loader.</li>
+<li><strong>node</strong> (<em>obj</em>) – Pyyaml node.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">joined string.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="yaml_parser.YamlConstructor.yaml_getter">
+<em class="property">static </em><code class="descname">yaml_getter</code><span class="sig-paren">(</span><em>loader</em>, <em>node</em>, <em>*</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#yaml_parser.YamlConstructor.yaml_getter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor to get data from dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>loader</strong> (<em>obj</em>) – PyYaml Loader.</li>
+<li><strong>node</strong> (<em>obj</em>) – Pyyaml node.</li>
+<li><strong>directory</strong> (<em>dict</em>) – project directory path.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">value at given key.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="yaml_parser.YamlParser">
+<em class="property">class </em><code class="descclassname">yaml_parser.</code><code class="descname">YamlParser</code><span class="sig-paren">(</span><em>debug</em>, <em>*</em>, <em>prod_block='prod'</em>, <em>dev_block='dev'</em>, <em>custom_constructors=None</em><span class="sig-paren">)</span><a class="headerlink" href="#yaml_parser.YamlParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse yaml.</p>
+<dl class="method">
+<dt id="yaml_parser.YamlParser.add_custom_constructors">
+<code class="descname">add_custom_constructors</code><span class="sig-paren">(</span><em>custom_constructors</em><span class="sig-paren">)</span><a class="headerlink" href="#yaml_parser.YamlParser.add_custom_constructors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add custom constructors to yaml.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>custom_constructors</strong> (<em>dict</em>) – custom constructors to add as key: tag, value: func.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="yaml_parser.YamlParser.add_getter_constructor">
+<code class="descname">add_getter_constructor</code><span class="sig-paren">(</span><em>name</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#yaml_parser.YamlParser.add_getter_constructor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a yaml constructor to get data from other yaml.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<em>str</em>) – name of the getter.</li>
+<li><strong>data</strong> (<em>dict</em>) – data dictionary to get from.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="yaml_parser.YamlParser.parse">
+<code class="descname">parse</code><span class="sig-paren">(</span><em>yaml_to_dict</em>, <em>yaml_dir_path</em><span class="sig-paren">)</span><a class="headerlink" href="#yaml_parser.YamlParser.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract .yml conf files into info dict.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>yaml_to_dict</strong> (<em>dict</em>) – dict to map yaml file with variable.</li>
+<li><strong>yaml_dir_path</strong> (<em>str</em>) – path directory for all yaml files.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="utils">
+<h2>Utils<a class="headerlink" href="#utils" title="Permalink to this headline">¶</a></h2>
+<p>Utils class and functions.</p>
+<span class="target" id="module-property"></span><div class="section" id="property">
+<h3>property<a class="headerlink" href="#property" title="Permalink to this headline">¶</a></h3>
+<p>Custom Property decorator.</p>
+<dl class="class">
+<dt id="property.ClassProperty">
+<em class="property">class </em><code class="descclassname">property.</code><code class="descname">ClassProperty</code><a class="headerlink" href="#property.ClassProperty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="property.StaticProperty">
+<em class="property">class </em><code class="descclassname">property.</code><code class="descname">StaticProperty</code><a class="headerlink" href="#property.StaticProperty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">DataF</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">References</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#entity">Entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#flask">Flask</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logging">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parser">Parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#utils">Utils</a></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.schibsted.io/leboncoin/hermes-powerpot">🚀 Github</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="settings.html" title="previous chapter">Settings</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Boumendil Benjamin.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/references.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

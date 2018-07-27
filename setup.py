@@ -9,10 +9,10 @@ setuptools.setup(
     version="0.0.1",
     author="Boumendil Benjamin",
     author_email="benjamin.boumendil@gmail.com",
-    description="Extract and serve your data.",
+    description="Create project to manipulate data.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",
+    url="https://github.com/BenjaminBoumendil/dataf",
     packages=setuptools.find_packages(),
     classifiers=(
         "Programming Language :: Python :: 3.5",

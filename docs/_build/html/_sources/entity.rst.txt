@@ -1,0 +1,10 @@
+Entity
+======
+
+Create database entity.
+
+
+.. automodule:: abc_entity
+    :members:
+.. automodule:: base_entity
+    :members:
