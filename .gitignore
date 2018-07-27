@@ -1,0 +1,9 @@
+# Package
+build
+dataf.egg-info
+dist
+
+# Documentation
+doc/_build/
+doc/_static/
+doc/_templates/
