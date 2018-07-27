@@ -1,5 +1,8 @@
 # DataF
 
+[![Documentation Status](https://readthedocs.org/projects/dataf/badge/?version=latest)](https://dataf.readthedocs.io/en/latest/?badge=latest)
+
+
 DataF is a framework to create data oriented project in a fast way.
 
 - Data and database manipulation using SQLAlchemy.
@@ -7,9 +10,6 @@ DataF is a framework to create data oriented project in a fast way.
 - Creating CLI using argparse.
 - Logging using logging.
 - Clean settings using Yaml.
-
-
-Take a look a the full documentation for more: WIP
 
 
 Dependencies:
