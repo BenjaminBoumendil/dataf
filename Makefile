@@ -20,5 +20,8 @@ clean:
 	rm -rf dist
 	rm -rf build
 	rm -rf dataf.egg-info
+	rm -rf .eggs
+	rm -rf .pytest_cache
+	rm -rf .tox
 
 re: clean all

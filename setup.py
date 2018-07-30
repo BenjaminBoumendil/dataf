@@ -22,7 +22,7 @@ setuptools.setup(
     python_requires='>=3.5',
     install_requires=[
         'SQLAlchemy', 'PyYAML', 'slackclient', 'flask', 'flasgger',
-        'docutils', 'mako'
+        'docutils', 'mako',
     ],
     entry_points={
         'console_scripts': ['dataf=dataf.command_line:main']

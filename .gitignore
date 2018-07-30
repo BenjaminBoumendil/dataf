@@ -2,6 +2,10 @@
 build
 dataf.egg-info
 dist
+.tox
+.pytest_cache
+.eggs
+venv
 
 # Documentation
 doc/_build/
@@ -12,3 +16,7 @@ doc/_templates/
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Coverage
+.coverage
+coverage.xml
