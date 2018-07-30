@@ -23,5 +23,7 @@ clean:
 	rm -rf .eggs
 	rm -rf .pytest_cache
 	rm -rf .tox
+	rm -rf coverage.xml
+	rm -rf .coverage
 
 re: clean all
