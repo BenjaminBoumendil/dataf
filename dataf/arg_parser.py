@@ -31,15 +31,19 @@ class ArgParser:
             sub_pars = sub_parsers.add_parser(cmd, help=inspect.getdoc(func))
             sub_pars.set_defaults(command=func)
             func_signature = inspect.signature(func)
-            func_docstring = self.parse_docstring(inspect.getdoc(func))
-            self.setup_sub_pars(sub_pars, func_signature, func_docstring)
+            func_docstring = self._parse_docstring(inspect.getdoc(func))
+            self._setup_sub_pars(sub_pars, func_signature, func_docstring)
 
-    def parse_docstring(self, source):
+    @staticmethod
+    def _parse_docstring(source):
         """
         Parse docstring to get all args and attached docstring.
 
         :param str source: docstring to parse.
         """
+        if source is None:
+            return {}
+
         doctree = publish_doctree(source).asdom()
         fields = doctree.getElementsByTagName('field')
 
@@ -55,7 +59,8 @@ class ArgParser:
 
         return kwargs_dict
 
-    def setup_sub_pars(self, sub_pars, signature, docstring):
+    @staticmethod
+    def _setup_sub_pars(sub_pars, signature, docstring):
         """
         Setup one sub parser.
 

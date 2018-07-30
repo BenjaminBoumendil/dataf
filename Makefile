@@ -16,6 +16,18 @@ doc:
 	mkdir -p $(shell pwd)/$(DOC_DIR)/_templates
 	@(cd $(DOC_DIR) && $(MAKE) html)
 
+venv:
+	virtualenv --python=python3 venv
+	venv/bin/pip install dist/dataf-0.0.1.tar.gz
+
+test:
+	venv/bin/python -m unittest $(arg)
+
+cov:
+	coverage run -m unittest discover
+	coverage html
+	browser html/index.html
+
 clean:
 	rm -rf dist
 	rm -rf build
@@ -25,5 +37,6 @@ clean:
 	rm -rf .tox
 	rm -rf coverage.xml
 	rm -rf .coverage
+	rm -rf htmlcov
 
-re: clean all
+re: clean install

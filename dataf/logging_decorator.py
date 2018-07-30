@@ -13,7 +13,7 @@ Suite of decorator for logging.
 from functools import wraps
 
 
-def simple_logger(level, *, start=None, end=None, err=None):
+def simple_logger(level, *, start=None, end=None):
     """
     Decorator for logging before and after function execution.
     Decorated function must be method in class with logger attribute.
@@ -21,7 +21,6 @@ def simple_logger(level, *, start=None, end=None, err=None):
     :param str level: level of logger.
     :param str start: string to log before function exec, default: None.
     :param str end: string to log after function exec, default: None.
-    :param str err: string to log if exception is raised, default: None.
     """
     def _decorator(func):
         @wraps(func)
