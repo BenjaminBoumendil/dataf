@@ -4,7 +4,9 @@ language: python
 matrix:
   include:
     - python: 3.5
+      env: TOXENV=py35
     - python: 3.6
+      env: TOXENV=py36
 
 services:
   - postgresql
@@ -14,7 +16,7 @@ before_script:
   - psql -c "CREATE DATABASE test OWNER admin;" -U postgres
 
 install:
-  - ./.travis/install
+  - pip install tox
 
 script:
-  - ./.travis/run tox
+  - tox
