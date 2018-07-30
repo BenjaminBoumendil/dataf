@@ -1,3 +1,4 @@
+dist: trusty
 language: python
 
 matrix:
@@ -8,13 +9,6 @@ matrix:
 
 services:
   - postgresql
-
-addons:
-  postgresql: '10'
-  apt:
-    packages:
-      - postgresql-10
-      - postgresql-client-10
 
 before_script:
   - psql -c "CREATE DATABASE test;" -U postgres
