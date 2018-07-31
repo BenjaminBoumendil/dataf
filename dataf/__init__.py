@@ -2,8 +2,7 @@ from dataf.database_manager import DatabaseManager
 from dataf.database_singleton import DatabaseSingleton
 from dataf.property import staticproperty, classproperty
 from dataf.yaml_parser import YamlParser
-from dataf.logging_decorator import simple_logger, err_simple_logger
-from dataf.logging_decorator import lambda_logger, err_lambda_logger
+from dataf.logging_decorator import simple_logger, lambda_logger
 from dataf.logging_filters import LvlFilter
 from dataf.logging_handlers import SlackHandler
 from dataf.logging_level import LoggingLevel
