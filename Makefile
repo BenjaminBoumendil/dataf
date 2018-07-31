@@ -26,7 +26,6 @@ test:
 cov:
 	coverage run -m unittest discover
 	coverage html
-	browser html/index.html
 
 clean:
 	rm -rf dist
