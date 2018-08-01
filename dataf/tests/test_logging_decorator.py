@@ -79,7 +79,7 @@ class LoggingTestMethod:
 
 class TestLoggingDecorator(unittest.TestCase):
     """
-    Test for logging decorator.
+    Test for logging decorator methods.
     """
     def test_simple_logger_with_start(self):
         """

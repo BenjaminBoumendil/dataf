@@ -12,7 +12,7 @@ Test suite for database_manager.
 
 import unittest
 
-from sqlalchemy import Column, Text, Table
+from sqlalchemy import Column, Text, Table, create_engine
 from sqlalchemy.engine.base import Engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm.session import Session
@@ -72,7 +72,7 @@ class TestDatabaseManager(unittest.TestCase):
         """
         Test if __init__ create engine link to our database.
         """
-        self.assertIsInstance(self.db.database, Engine)
+        self.assertIsInstance(self.db.engine, Engine)
         self.assertIsInstance(self.db.Session, scoped_session)
 
     def test_init_with_bad_database_info(self):
@@ -99,8 +99,9 @@ class TestDatabaseManager(unittest.TestCase):
         Test if database_exists raise exception with bad database.
         """
         db = DatabaseManager(settings.DATABASE['test'])
-        db.database = 'bad_database'
-
+        db.engine = create_engine(
+            'postgresql://username:password@localhost:5432/database'
+        )
         with self.assertRaises(Exception):
             db._database_exists()
 
@@ -417,5 +418,16 @@ class TestDatabaseManager(unittest.TestCase):
         with self.assertRaises(Exception):
             self.db.bulk_save_objects([NonExistingEntity()])
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_bulk_insert_mappings_core(self):
+        """
+        Test bulk_insert_mappings_core.
+        """
+        data = [
+            {'text': 'text1'},
+            {'text': 'text2'},
+        ]
+        self.db.bulk_insert_mappings_core(EntityTest, data)
+        with self.db.session() as session:
+            result = session.query(EntityTest).all()
+
+        self.assertEqual(len(result), len(data))

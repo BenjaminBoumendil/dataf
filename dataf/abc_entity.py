@@ -31,7 +31,7 @@ class ABCEntity:
 
         :param obj db: DatabaseManager.
         """
-        cls.__table__.create(db.database)
+        cls.__table__.create(db.engine)
         return cls
 
     @classmethod
@@ -41,7 +41,7 @@ class ABCEntity:
 
         :param obj db: DatabaseManager.
         """
-        cls.__table__.drop(db.database)
+        cls.__table__.drop(db.engine)
         return cls
 
     @classmethod
@@ -52,7 +52,7 @@ class ABCEntity:
         :param obj db: DatabaseManager.
         :return: True if exists otherwise False.
         """
-        return cls.__table__.exists(db.database)
+        return cls.__table__.exists(db.engine)
 
     @classproperty
     def pk(cls):

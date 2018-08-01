@@ -1,12 +1,12 @@
 References
 ==========
 
-All class references.
+All functionalities references.
 
 Database
 --------
 
-Database manipulation class.
+Database manipulation classes.
 
 
 .. automodule:: database_manager
@@ -17,7 +17,7 @@ Database manipulation class.
 Entity
 ------
 
-Create database entity.
+Database entities creation.
 
 
 .. automodule:: abc_entity
@@ -28,7 +28,7 @@ Create database entity.
 Flask
 -----
 
-Handle flask server.
+Flask interaction classes.
 
 
 .. automodule:: flask_engine
@@ -37,7 +37,7 @@ Handle flask server.
 Logging
 -------
 
-Custom logging setup and utils.
+Logging setup and utils.
 
 
 .. automodule:: logging_decorator
@@ -52,7 +52,7 @@ Custom logging setup and utils.
 Parser
 ------
 
-Parser.
+Parsers creation.
 
 
 .. automodule:: arg_parser
@@ -63,7 +63,7 @@ Parser.
 Utils
 -----
 
-Utils class and functions.
+Utils classes and functions.
 
 
 .. automodule:: property

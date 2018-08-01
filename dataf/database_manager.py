@@ -6,18 +6,18 @@ __doc__ = """
 Database manager
 ----------------
 
-Handle database basic operation using sqlalchemy.
+Abstract database operations using SQLAlchemy.
 
-Logs all error in exception object.
-exception.logger: logger object.
-exception.message: error message.
+Store all errors in exception object.
+ | exception.logger: logger object.
+ | exception.message: error message.
 
 """
 
 import logging
 from contextlib import contextmanager
 
-from sqlalchemy import engine_from_config, MetaData, and_, Table
+from sqlalchemy import engine, engine_from_config, MetaData, and_, Table
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.schema import CreateSchema, DropSchema
@@ -26,27 +26,46 @@ from sqlalchemy.sql import exists, text
 
 class DatabaseManager:
     """
-    Manage database interaction, Logs all error.
-    """
-    def __init__(self, configuration, prefix='', **kwargs):
-        """
-        Init logger and database connection, log and raise exception in case of
-        connection error.
+    Manage database interaction.
+    Create a new Engine instance using a configuration dictionary.
+    He must contains a key (assuming the default prefix) url which provides
+    the database URL.
+     | dialect+driver://username:password@host:port/database
 
-        :param dict configuration: engine configuration.
-        :param str prefix: prefix to match and then strip from keys in
-            ‘configuration’, default to ''.
-        :param dict kwargs: each keyword argument overrides the corresponding
-            item taken from the ‘configuration’ dictionary.
-            Keyword arguments should not be prefixed
-        """
+    Otherwise the url keyword arg must be provide with the following parameters.
+     - drivername – the name of the database backend. This name will correspond to a module in sqlalchemy/databases or a third party plug-in.
+     - username – The user name.
+     - password – database password.
+     - host – The name of the host.
+     - port – The port number.
+     - database – The database name.
+     - query – A dictionary of options to be passed to the dialect and/or the DBAPI upon connect.
+
+    .. WARNING:: If url argument is provided it will override configuration url key.
+
+    .. NOTE:: Engine is created with sqlalchemy.engine_from_config,
+        url is created with sqlalchemy.engine.url.URL,
+        you can find more informations on
+        http://docs.sqlalchemy.org/en/latest/core/engines.html.
+
+    :param dict configuration: engine configuration.
+    :param dict url: arguments to construct the database URL, default to None.
+    :param str prefix: prefix to match and then strip from keys in
+        ‘configuration’, default to ''.
+    :param dict kwargs: each keyword argument overrides the corresponding
+        item taken from the ‘configuration’ dictionary.
+        Keyword arguments should not be prefixed.
+    """
+    def __init__(self, configuration, *, url=None, prefix='', **kwargs):
         self.logger = logging.getLogger(__name__)
+        if url is not None:
+            configuration['url'] = engine.url.URL(**url)
         try:
-            self.database = engine_from_config(
+            self.engine = engine_from_config(
                 configuration, prefix=prefix, **kwargs
             )
             self._database_exists()
-            self.Session = scoped_session(sessionmaker(self.database))
+            self.Session = scoped_session(sessionmaker(self.engine))
         except Exception as e:
             e.logger = self.logger
             e.message = 'Failed to connect to database'
@@ -54,17 +73,24 @@ class DatabaseManager:
 
     def _database_exists(self):
         """
-        Check if database exists, raise exception if not.
+        Check if database connection work, raise exception if not.
         """
-        connection = self.database.connect()
+        connection = self.engine.connect()
         connection.close()
         return True
 
     @contextmanager
     def session(self, *, raise_err=True, session_config=None):
         """
-        Context manager for session, yield a session then commit,
-        in case of error log exception and rollback session.
+        Context manager for session, yield a Session instance if session_config
+        is not provided autocommit is turn to True and expire_on_commit to False.
+        In case of error log exception and rollback session,
+        and finally close the session.
+
+        .. NOTE:: Session object is created with scoped_session, this ensure to
+            always have the same session object for a database.
+            More informations on
+            http://docs.sqlalchemy.org/en/latest/orm/contextual.html.
 
         :param bool raise_err: raise exception in case of error if True. Default to True.
         :param dict session_config: session configuration.
@@ -87,12 +113,12 @@ class DatabaseManager:
 
     def create_schema(self, name):
         """
-        Create given schema, log and raise exception in case of error.
+        Create a schema.
 
         :param str name: name of schema.
         """
         try:
-            self.database.execute(CreateSchema(name))
+            self.engine.execute(CreateSchema(name))
         except Exception as e:
             e.logger = self.logger
             e.message = "Failed to create schema: {}".format(name)
@@ -100,12 +126,12 @@ class DatabaseManager:
 
     def drop_schema(self, name):
         """
-        Drop given schema, log and raise exception in case of error.
+        Drop a schema.
 
         :param str name: name of schema.
         """
         try:
-            self.database.execute(DropSchema(name))
+            self.engine.execute(DropSchema(name))
         except Exception as e:
             e.logger = self.logger
             e.message = "Failed to drop schema: {}".format(name)
@@ -132,14 +158,14 @@ class DatabaseManager:
 
     def create_table_obj(self, name, *, schema=None, autoload=True):
         """
-        Create an sqlalchemy table object.
+        Create an sqlalchemy.Table object.
 
         :param str name: name of table.
         :param str schema: table schema name. Default to None.
         :param bool autoload: autoload table structure. Default to True.
         """
         table = Table(
-            name, MetaData(bind=self.database),
+            name, MetaData(bind=self.engine),
             autoload=autoload, schema=schema
         )
 
@@ -147,14 +173,14 @@ class DatabaseManager:
 
     def map_tables(self, tables, *, schema=None):
         """
-        Map tables into python object, log and raise exception in case of error.
+        Map list of tables into python object.
 
         :param list tables: list of tables name to map.
         :param str schema: table schema name. Default to None.
         :return: list of python object containing tables schemas.
         """
         try:
-            metadata = MetaData(bind=self.database, schema=schema)
+            metadata = MetaData(bind=self.engine, schema=schema)
             metadata.reflect(only=tables)
             base = automap_base(metadata=metadata)
             base.prepare()
@@ -169,7 +195,6 @@ class DatabaseManager:
     def add(self, entity):
         """
         Add one entity into current database, flush and expunge it.
-        Raise and log exception in case of error.
 
         :param obj entity: Entity class with data to feed database.
         """
@@ -181,7 +206,6 @@ class DatabaseManager:
     def add_all(self, entities):
         """
         Add list of entity into current database, flush and expunge it.
-        Raise and log exception in case of error.
 
         :param list entities: List of entity class with data to feed.
         """
@@ -193,10 +217,9 @@ class DatabaseManager:
     def read(self, table):
         """
         Read all entry for one table, expunge and return it.
-        Raise and log exception in case of error.
 
         :param obj table: Entity class with table schema.
-        :return: list of database entry as entity class. None in case of error.
+        :return: list of database row as entity class.
         """
         with self.session() as session:
             entities = session.query(table).all()
@@ -205,7 +228,7 @@ class DatabaseManager:
 
     def delete(self, entity, merge=False):
         """
-        Delete one entry, raise and log exception in case of error.
+        Delete one entity in current database.
 
         :param obj entity: Entity instance to delete.
         """
@@ -217,7 +240,7 @@ class DatabaseManager:
 
     def update(self, entity, keys):
         """
-        Update entity, select by id. Raise and log exception in case of error.
+        Update one entity, select by id.
 
         :param obj entity: entity object to update.
         :paran list keys: list of keys to update.
@@ -232,7 +255,7 @@ class DatabaseManager:
 
     def entity_exists(self, filter):
         """
-        Check if an entity exists on given filter, raise exception in case of error.
+        Check if an entity exists on given filter.
 
         :param obj entity: filter to apply to where clause.
         :return: True if exists otherwise False.
@@ -259,3 +282,17 @@ class DatabaseManager:
         """
         with self.session() as session:
             session.bulk_save_objects(data, return_defaults=return_defaults)
+
+    def bulk_insert_mappings_core(self, obj, data, chunk_size=1000):
+        """
+        Execute a bulk insert of data split in chunks using SQLAlchemy CORE.
+
+        :param obj obj: Class representing table schema.
+        :param list data: list of dict representing data to add.
+        :param int chunk_size: size of chunk to insert at one time, default to 1000.
+        """
+        chunks_nb = range(0, len(data), chunk_size)
+        chunks = [data[x:x + chunk_size] for x in chunks_nb]
+        with self.session() as session:
+            for chunk in chunks:
+                session.execute(obj.__table__.insert().values(chunk))

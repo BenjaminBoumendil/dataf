@@ -39,5 +39,5 @@ class TestDatabaseSingleton(unittest.TestCase):
         Test getattr.
         """
         instance = DatabaseSingleton(settings.DATABASE['test'])
-        self.assertIsInstance(instance.database, Engine)
+        self.assertIsInstance(instance.engine, Engine)
         self.assertTrue(callable(instance.session))
