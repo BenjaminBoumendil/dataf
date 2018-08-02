@@ -19,6 +19,9 @@ class ${project_name.capitalize()}:
         self.commands = {
             'dev': self.dev,
         }
+        self.arg_parse_opt = {
+            'description': '${project_name.capitalize()} CLI.'
+        }
 
     def dev(self):
         """
@@ -29,10 +32,7 @@ class ${project_name.capitalize()}:
         """
         Parse arguments.
         """
-        arg_parse_opt = {
-            'description': '${project_name.capitalize()} CLI.'
-        }
-        ArgParser(arg_parse_opt, self.commands).parse()
+        ArgParser(self.arg_parse_opt, self.commands).parse()
 
 
 if __name__ == '__main__':

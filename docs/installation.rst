@@ -23,7 +23,7 @@ From pip::
     $ pip install -U dataf
 
 
-Package CLI
+DataF CLI
 -----------
 
 Create project::

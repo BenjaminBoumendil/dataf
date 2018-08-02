@@ -28,11 +28,11 @@ class DatabaseManager:
     """
     Manage database interaction.
     Create a new Engine instance using a configuration dictionary.
-    He must contains a key (assuming the default prefix) url which provides
+    He must contains a key (assuming the default prefix) url, which provides
     the database URL.
      | dialect+driver://username:password@host:port/database
 
-    Otherwise the url keyword arg must be provide with the following parameters.
+    Otherwise the url keyword arg must be provided with the following parameters.
      - drivername – the name of the database backend. This name will correspond to a module in sqlalchemy/databases or a third party plug-in.
      - username – The user name.
      - password – database password.
@@ -243,7 +243,7 @@ class DatabaseManager:
         Update one entity, select by id.
 
         :param obj entity: entity object to update.
-        :paran list keys: list of keys to update.
+        :param list keys: list of keys to update.
         """
         update_dict = dict(filter(lambda x: x[0] in keys, entity.__dict__.items()))
         with self.session() as session:

@@ -8,9 +8,9 @@ dist
 venv
 
 # Documentation
-doc/_build/
-doc/_static/
-doc/_templates/
+docs/_build/
+docs/_static/
+docs/_templates/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -19,7 +19,8 @@ DataF is a Framework to create data oriented project in a fast way.
    :caption: Contents:
 
    installation
-   create_project
+   first_project
+   how_to
    settings
    references
 

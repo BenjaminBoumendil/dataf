@@ -86,7 +86,7 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'nature'
+html_theme = 'alabaster'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -94,8 +94,15 @@ html_theme = 'nature'
 #
 html_theme_options = {
     # "extra_nav_links": {
-        # "🚀 Github": "https://github.com/BenjaminBoumendil/dataf"
-    # }
+    #     "🚀 Github": "https://github.com/BenjaminBoumendil/dataf"
+    # },
+    'github_user': "BenjaminBoumendil",
+    'github_repo': "dataf",
+    'codecov_button': True,
+    'travis_button': True,
+    'github_banner': True,
+    'github_button': True,
+    'page_width': '60%',
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -111,14 +118,14 @@ html_static_path = ['_static']
 # default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
 # 'searchbox.html']``.
 #
-# html_sidebars = {
-#     '**': [
-#         'about.html',
-#         'navigation.html',
-#         'relations.html',  # needs 'show_related': True theme option to display
-#         'searchbox.html',
-#     ]
-# }
+html_sidebars = {
+    '**': [
+        'about.html',
+        'navigation.html',
+        'relations.html',  # needs 'show_related': True theme option to display
+        'searchbox.html',
+    ]
+}
 
 
 # -- Options for HTMLHelp output ---------------------------------------------
