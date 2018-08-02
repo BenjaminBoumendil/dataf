@@ -2,8 +2,8 @@ How to
 ======
 
 
-ArgParser
----------
+Create and customise your CLI
+-----------------------------
 
 
 Add commands
@@ -188,3 +188,5 @@ You can define a list of choices using annotation.
 
 Override parsing behavior for a command
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+WIP

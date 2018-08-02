@@ -15,7 +15,7 @@ DataF is a Framework to create data oriented project in a fast way.
 - Clean settings using Yaml.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    installation
