@@ -16,7 +16,7 @@ This will create a directory <name> where you execute the command with a file <n
 Entry point
 -----------
 
-The entry point is made to avoid import probleme, you can alias it to have a easy way of using your program.
+The entry point is made to avoid import problem, it contains:
 
 - An init method initialising arg_parse_opt and commands for the arguments parser.
 
@@ -26,7 +26,7 @@ The entry point is made to avoid import probleme, you can alias it to have a eas
 
 You can add more command to your CLI just by adding entry in the commands dictionary, key is the command name and value is a function or a class with a run method.
 
-For more information about the command parser and how to create more complex command see the ArgParser documentation in References.
+For more information about the command parser and how to create more complex command see the ArgParser documentation in References or the How to sections.
 
 
 Settings

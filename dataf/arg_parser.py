@@ -69,7 +69,7 @@ class ArgParser:
         :param obj docstring: func docstring.
         """
         for param in filter('self'.__ne__, signature.parameters):
-            sub_pars_arg = {'metavar': param, 'help': docstring[param]}
+            sub_pars_arg = {'metavar': param, 'help': docstring.get(param, '')}
             if signature.parameters[param].default is not inspect._empty:
                 arg_name = '--{}'.format(param)
                 sub_pars_arg['default'] = signature.parameters[param].default
@@ -77,7 +77,7 @@ class ArgParser:
                 arg_name = param
                 if signature.parameters[param].annotation is not inspect._empty:
                     sub_pars_arg['choices'] = signature.parameters[param].annotation
-                    sub_pars_arg['help'] = docstring[param] + " (choices: %(choices)s)"
+                    sub_pars_arg['help'] = docstring.get(param, '') + " (choices: %(choices)s)"
             sub_pars.add_argument(arg_name, **sub_pars_arg)
 
     def parse(self):
