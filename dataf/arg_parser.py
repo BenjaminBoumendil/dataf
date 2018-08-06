@@ -28,19 +28,18 @@ class ArgParser:
         sub_parsers = self.parser.add_subparsers()
 
         for name, exec in sorted(self.commands.items()):
-            if inspect.isclass(exec):
-                exec = exec.run
-            func_docstring = inspect.getdoc(exec)
+            func = exec.run if inspect.isclass(exec) else exec
+            func_docstring = inspect.getdoc(func)
             sub_pars = sub_parsers.add_parser(
                 name, help=self._docstring_desc(func_docstring)
             )
             sub_pars.set_defaults(command=exec)
-            func_signature = inspect.signature(exec)
+            func_signature = inspect.signature(func)
             docstring_args = self._docstring_args(func_docstring)
-            if hasattr(exec, 'setup_sub_pars'):
-                exec.setup_sub_pars(sub_pars, func_signature, docstring_args)
+            if hasattr(exec, 'setup_sub_parser'):
+                exec.setup_sub_parser(sub_pars, func_signature, docstring_args)
             else:
-                self._setup_sub_pars(sub_pars, func_signature, docstring_args)
+                self._setup_sub_parser(sub_pars, func_signature, docstring_args)
 
     @staticmethod
     def _docstring_desc(docstring):
@@ -79,7 +78,7 @@ class ArgParser:
         return kwargs_dict
 
     @staticmethod
-    def _setup_sub_pars(sub_pars, signature, docstring):
+    def _setup_sub_parser(sub_pars, signature, docstring):
         """
         Setup one sub parser.
 

@@ -186,15 +186,17 @@ You can define a list of choices using annotation.
         def test_command(req_arg: _choices):
             pass
 
-Override parsing behavior for a command
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Override sub parser behavior for a command
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To define a custom parsing behavior you must use classes and define a 'setup_sub_pars' function in it who take 3 arguments:
+To define a custom sub parser behavior you must use a classe and define a 'setup_sub_parser' function in it who take 3 arguments:
 
-sub_pars: subparser object from argparser, result of add_parser method from `add_subparsers`_.
-signature: function signature, result of `inspect.signature`_ method.
-docstring: docstring arguments as dict. key: arg name, value: arg description.
+- sub_pars: subparser object from argparser, result of add_parser method from `add_subparsers`_.
 
-.. _add_subparsers:: https://docs.python.org/3.6/library/argparse.html#sub-commands
+- signature: function signature, result of `inspect.signature`_ method.
 
-.. _inspect.signature:: https://docs.python.org/3.6/library/inspect.html#introspecting-callables-with-the-signature-object
+- docstring: docstring arguments as dict. key: arg name, value: arg description.
+
+.. _add_subparsers: https://docs.python.org/3.6/library/argparse.html#sub-commands
+
+.. _inspect.signature: https://docs.python.org/3.6/library/inspect.html#introspecting-callables-with-the-signature-object

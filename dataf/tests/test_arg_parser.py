@@ -10,15 +10,42 @@ Test suite for arg_parser.
 
 """
 
+import io
 import unittest
 import argparse
+from unittest.mock import patch
+from contextlib import redirect_stdout, redirect_stderr
+from argparse import ArgumentError
 
 from dataf import ArgParser
 
 
-class TestArgParser(unittest.TestCase):
+class CommandTest:
+    def run(self):
+        """
+        Test command.
+        """
+        raise NotImplementedError
+
+
+class CustomSubParser:
+    def run(self, param):
+        """
+        Test command.
+        """
+        raise NotImplementedError
+
+    @staticmethod
+    def setup_sub_parser(sub_pars, signature, docstring):
+        sub_pars.add_argument(
+            'param', metavar='custom_sub_parser',
+            help='Custom sub parser.'
+        )
+
+
+class TestArgParserFunc(unittest.TestCase):
     """
-    Test for ArgParser class.
+    Test for ArgParser class with a function as command.
     """
     @classmethod
     def setUpClass(cls):
@@ -29,7 +56,7 @@ class TestArgParser(unittest.TestCase):
         """
         Test command.
         """
-        pass
+        raise NotImplementedError
 
     @classmethod
     def _create_arg_parser(cls, opt=None, commands=None):
@@ -43,6 +70,54 @@ class TestArgParser(unittest.TestCase):
         commands = commands or {'test': cls._test_command}
         arg_parser = ArgParser(opt, commands)
         return arg_parser
+
+    def test_init_set_commands(self):
+        """
+        Test __init__ method set commands.
+        """
+        test_cmd = next(filter(
+            lambda x: getattr(x, '_name_parser_map', None) is not None,
+            self.arg_parser.parser._actions
+        ))
+        self.assertIn('test', test_cmd.choices.keys())
+
+    def test_init_command_helper(self):
+        """
+        Test __init__ method set commands help.
+        """
+        test_cmd = next(filter(
+            lambda x: getattr(x, '_name_parser_map', None) is not None,
+            self.arg_parser.parser._actions
+        ))
+        self.assertEqual('Test command.', test_cmd._choices_actions[0].help)
+
+    def test_parse(self):
+        """
+        Test parse function.
+        """
+        with patch('sys.argv', ['test', 'test']):
+            with self.assertRaises(NotImplementedError):
+                self.arg_parser.parse()
+
+    def test_parse_without_command(self):
+        """
+        Test parse function without command.
+        """
+        f = io.StringIO()
+        with patch('sys.argv', ['test']):
+            with redirect_stdout(f):
+                self.arg_parser.parse()
+        parse = f.getvalue()
+        self.assertEqual(parse, self.arg_parser.parser.format_help())
+
+
+class TestArgParserClass(TestArgParserFunc):
+    """
+    Test for ArgParser class with a class as command.
+    """
+    @classmethod
+    def setUpClass(cls):
+        cls.arg_parser = cls._create_arg_parser(commands={'test': CommandTest})
 
     def test_init_create_arg_parser(self):
         """
@@ -62,15 +137,19 @@ class TestArgParser(unittest.TestCase):
         """
         self.assertEqual(self.arg_parser.parser.description, 'Test')
 
-    def test_init_set_commands(self):
+    def test_init_with_custom_set_sub_parser(self):
         """
-        Test __init__ method set commands.
+        Test __init__ method with a class containing a custom set_sub_parser method.
         """
+        parser = self._create_arg_parser(commands={'test': CustomSubParser})
         test_cmd = next(filter(
             lambda x: getattr(x, '_name_parser_map', None) is not None,
-            self.arg_parser.parser._actions
+            parser.parser._actions
         ))
-        self.assertIn('test', test_cmd.choices.keys())
+        self.assertEqual(
+            'custom_sub_parser',
+            test_cmd.choices['test']._get_positional_actions()[0].metavar
+        )
 
     def test_docstring_args(self):
         """
