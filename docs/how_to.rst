@@ -109,7 +109,7 @@ Command arguments is generated from the function signature, function required pa
 Customise command helper
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Helper are generated from the function docstring, first part of docstring is for the command and param docstring for the command arguments.
+Helper are generated from the function docstring, first line of docstring is for the command description and docstring param for the command arguments.
 
 .. code-block:: python
     :linenos:
@@ -189,4 +189,12 @@ You can define a list of choices using annotation.
 Override parsing behavior for a command
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-WIP
+To define a custom parsing behavior you must use classes and define a 'setup_sub_pars' function in it who take 3 arguments:
+
+sub_pars: subparser object from argparser, result of add_parser method from `add_subparsers`_.
+signature: function signature, result of `inspect.signature`_ method.
+docstring: docstring arguments as dict. key: arg name, value: arg description.
+
+.. _add_subparsers:: https://docs.python.org/3.6/library/argparse.html#sub-commands
+
+.. _inspect.signature:: https://docs.python.org/3.6/library/inspect.html#introspecting-callables-with-the-signature-object

@@ -72,11 +72,11 @@ class TestArgParser(unittest.TestCase):
         ))
         self.assertIn('test', test_cmd.choices.keys())
 
-    def test_parse_docstring(self):
+    def test_docstring_args(self):
         """
-        Test _parse_docstring return dict with docstring param as ReStructuredText.
+        Test _docstring_args return dict with docstring param as ReStructuredText.
         """
-        t = ArgParser._parse_docstring(
+        args = ArgParser._docstring_args(
             """
             Test docstring.
 
@@ -85,19 +85,48 @@ class TestArgParser(unittest.TestCase):
             """
         )
         self.assertEqual(
-            {'test': 'test string.', 'test2': 'second test string.'}, t
+            {'test': 'test string.', 'test2': 'second test string.'}, args
         )
 
-    def test_parse_docstring_with_empty_string(self):
+    def test_docstring_args_with_empty_string(self):
         """
-        Test _parse_docstring with an empty docstring.
+        Test _docstring_args with an empty docstring.
         """
-        t = ArgParser._parse_docstring("")
-        self.assertEqual({}, t)
+        args = ArgParser._docstring_args("")
+        self.assertEqual({}, args)
 
-    def test_parse_docstring_with_none(self):
+    def test_docstring_args_with_none(self):
         """
-        Test _parse_docstring with None (no docstring in function).
+        Test _docstring_args with None (no docstring in function).
         """
-        t = ArgParser._parse_docstring(None)
-        self.assertEqual({}, t)
+        args = ArgParser._docstring_args(None)
+        self.assertEqual({}, args)
+
+    def test_docstring_desc(self):
+        """
+        Test _docstring_desc return first line of docstring.
+        """
+        description = ArgParser._docstring_desc(
+            """
+            Test docstring.
+            Second line.
+
+            :param str test: test string.
+            :param str test2: second test string.
+            """
+        )
+        self.assertEqual('Test docstring.', description)
+
+    def test_docstring_desc_with_empty_string(self):
+        """
+        Test _docstring_desc with an empty docstring.
+        """
+        description = ArgParser._docstring_desc('')
+        self.assertEqual('', description)
+
+    def test_docstring_desc_with_none(self):
+        """
+        Test _docstring_desc with None.
+        """
+        description = ArgParser._docstring_desc(None)
+        self.assertEqual('', description)

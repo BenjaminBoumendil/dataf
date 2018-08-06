@@ -16,7 +16,7 @@ from docutils.core import publish_doctree
 
 class ArgParser:
     """
-    Generic arg parser.
+    Parser for CLI creation.
     """
     def __init__(self, parser_options, commands):
         """
@@ -27,32 +27,51 @@ class ArgParser:
         self.commands = commands
         sub_parsers = self.parser.add_subparsers()
 
-        for cmd, func in sorted(self.commands.items()):
-            sub_pars = sub_parsers.add_parser(cmd, help=inspect.getdoc(func))
-            sub_pars.set_defaults(command=func)
-            func_signature = inspect.signature(func)
-            func_docstring = self._parse_docstring(inspect.getdoc(func))
-            self._setup_sub_pars(sub_pars, func_signature, func_docstring)
+        for name, exec in sorted(self.commands.items()):
+            if inspect.isclass(exec):
+                exec = exec.run
+            func_docstring = inspect.getdoc(exec)
+            sub_pars = sub_parsers.add_parser(
+                name, help=self._docstring_desc(func_docstring)
+            )
+            sub_pars.set_defaults(command=exec)
+            func_signature = inspect.signature(exec)
+            docstring_args = self._docstring_args(func_docstring)
+            if hasattr(exec, 'setup_sub_pars'):
+                exec.setup_sub_pars(sub_pars, func_signature, docstring_args)
+            else:
+                self._setup_sub_pars(sub_pars, func_signature, docstring_args)
 
     @staticmethod
-    def _parse_docstring(source):
+    def _docstring_desc(docstring):
+        """
+        Parse docstring to get the first line of description.
+
+        :param str docstring: docstring to parse.
+        :returns: string of description
+        """
+        if docstring:
+            return next(filter(''.__ne__, docstring.split('\n'))).strip()
+        return ''
+
+    @staticmethod
+    def _docstring_args(docstring):
         """
         Parse docstring to get all args and attached docstring.
 
-        :param str source: docstring to parse.
+        :param str docstring: docstring to parse.
+        :return: dict of args as key: arg name, value: arg description.
         """
-        if source is None:
+        if docstring is None:
             return {}
 
-        doctree = publish_doctree(source).asdom()
+        doctree = publish_doctree(docstring).asdom()
         fields = doctree.getElementsByTagName('field')
 
         kwargs_dict = {}
-
         for field in fields:
             field_name = field.getElementsByTagName('field_name')[0]
             field_body = field.getElementsByTagName('field_body')[0]
-
             kwargs_dict[field_name.firstChild.nodeValue.split()[-1]] = " ".join(
                 c.firstChild.nodeValue for c in field_body.childNodes
             )
