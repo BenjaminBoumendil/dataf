@@ -27,7 +27,7 @@ class StaticProperty(property):
     """
     Decorator to set a property as staticmethod.
 
-    usage: @staticmethod.
+    usage: @staticproperty.
     """
     def __get__(self, cls, owner):
         return self.fget.__get__(owner)()
