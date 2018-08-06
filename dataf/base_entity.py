@@ -6,12 +6,27 @@ __doc__ = """
 Base entity
 -----------
 
+Basic Entity as declarative to inherite from.
+
 """
 
 from sqlalchemy import Column, Integer
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
 
 from dataf import ABCEntity
+
+
+@as_declarative()
+class EmptyEntity(ABCEntity):
+    """
+    Entity without any fields.
+    """
+    @declared_attr
+    def __tablename__(cls):
+        """
+        Set __tablename__ attr to lower case classe name.
+        """
+        return cls.__name__.lower()
 
 
 @as_declarative()
@@ -24,6 +39,6 @@ class BaseEntity(ABCEntity):
     @declared_attr
     def __tablename__(cls):
         """
-        Set __tablename__ attr to lower case class name.
+        Set __tablename__ attr to lower case classe name.
         """
         return cls.__name__.lower()

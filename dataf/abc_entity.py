@@ -30,6 +30,7 @@ class ABCEntity:
         Create table in database.
 
         :param obj db: DatabaseManager.
+        :return: cls object.
         """
         cls.__table__.create(db.engine)
         return cls
@@ -40,6 +41,7 @@ class ABCEntity:
         Drop table in database.
 
         :param obj db: DatabaseManager.
+        :return: cls object.
         """
         cls.__table__.drop(db.engine)
         return cls

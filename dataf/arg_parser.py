@@ -17,12 +17,11 @@ from docutils.core import publish_doctree
 class ArgParser:
     """
     Parser for CLI creation.
+
+    :param dict parser_options: arguments for argparse.ArgumentParser.
+    :param dict commands: dict of all commands as key: command name, value: callable.
     """
     def __init__(self, parser_options, commands):
-        """
-        :param dict parser_options: arguments for argparse.ArgumentParser.
-        :param dict commands: dict of all commands as key: command name, value: callable.
-        """
         self.parser = argparse.ArgumentParser(**parser_options)
         self.commands = commands
         sub_parsers = self.parser.add_subparsers()
@@ -47,7 +46,7 @@ class ArgParser:
         Parse docstring to get the first line of description.
 
         :param str docstring: docstring to parse.
-        :returns: string of description
+        :returns: string of description.
         """
         if docstring:
             return next(filter(''.__ne__, docstring.split('\n'))).strip()
@@ -100,7 +99,7 @@ class ArgParser:
 
     def parse(self):
         """
-        Parse command argument.
+        Parse command argument and execute the command, print helper if no command.
         """
         args = self.parser.parse_args()
         if hasattr(args, 'command'):

@@ -19,28 +19,28 @@ from slackclient import SlackClient
 class SlackHandler(logging.Handler):
     """
     Handler for slack.
+    Use color dict attr for the message attachments.
+    color = {
+        'ERROR': '#F00', (RED)
+        'OTHER': '#3AA3E3', (BLUE)
+        'SLACK': '#00ff2b', (GREEN)
+        'WARNING': '#f07900', (YELLOW)
+    }
+
+    :param str token: auth token for slack.
+    :param str channel: channel name to post message.
     """
-    channel = None
-    slack = None
     color = {
         'ERROR': '#F00',
-        'BLUE': '#3AA3E3',
+        'OTHER': '#3AA3E3',
         'SLACK': '#00ff2b',
         'WARNING': '#f07900',
     }
 
     def __init__(self, token, channel, proxies):
-        """
-        Init slack handler.
-
-        :param str token: auth token for slack.
-        :param str channel: channel name to post message.
-        """
         logging.Handler.__init__(self)
         self.channel = channel
-        self.slack = SlackClient(
-            token, proxies=proxies
-        )
+        self.slack = SlackClient(token, proxies=proxies)
 
     def emit(self, record):
         """
@@ -59,7 +59,7 @@ class SlackHandler(logging.Handler):
         """
         attachments = [{
             'text': self.format(record),
-            'color': self.color.get(record.levelname, self.color['BLUE'])
+            'color': self.color.get(record.levelname, self.color['OTHER'])
         }]
         return attachments
 

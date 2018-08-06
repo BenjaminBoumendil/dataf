@@ -15,9 +15,9 @@ import logging
 
 class LvlFilter(logging.Filter):
     """
-    Custom filter based on level, log record only if level is equal or between two value.
+    Custom filter based on level, log only if level is equal or between two value.
 
-    :pram int low: low level value.
+    :param int low: low level value.
     :param int high: high level value.
     """
     def __init__(self, low, high):

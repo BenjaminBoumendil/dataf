@@ -19,12 +19,12 @@ import yaml
 
 class YamlConstructor:
     """
-    Custom Yaml constructor.
+    Collection of custom Yaml constructor.
     """
     @staticmethod
     def simple_join(loader, node):
         """
-        Yaml join list of string.
+        Yaml join list of string on empty string.
 
         :param obj loader: PyYaml Loader.
         :param obj node: Pyyaml node.
@@ -61,7 +61,13 @@ class YamlConstructor:
 
 class YamlParser:
     """
-    Parse yaml.
+    Parse yaml file using custom constructor with two level of settings
+    prod and dev, dev inherite from prod and override it.
+
+    :param bool debug: bool to setup prod or dev settings.
+    :param str prod_block: yaml block name for production settings, default: prod.
+    :param str dev_block: yaml block name for development settings, default: dev.
+    :param dict directory: project directory path, default: {}.
     """
     custom_constructors = {
         '!join': YamlConstructor.simple_join,
@@ -69,12 +75,6 @@ class YamlParser:
     }
 
     def __init__(self, debug, *, prod_block='prod', dev_block='dev', custom_constructors=None):
-        """
-        :param bool debug: bool to setup prod or dev settings.
-        :param str prod_block: yaml block for production settings, default: prod.
-        :param str dev_block: yaml block for development settings, default: dev.
-        :param dict directory: project directory path, default: {}.
-        """
         self.prod_block = prod_block
         self.dev_block = dev_block
         self.debug = debug
