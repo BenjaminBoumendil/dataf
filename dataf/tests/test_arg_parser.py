@@ -14,8 +14,7 @@ import io
 import unittest
 import argparse
 from unittest.mock import patch
-from contextlib import redirect_stdout, redirect_stderr
-from argparse import ArgumentError
+from contextlib import redirect_stdout
 
 from dataf import ArgParser
 

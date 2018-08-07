@@ -57,7 +57,7 @@ class TestSlackHandler(TestCase):
         """
         proxies = {'http': {'vpprx': 0000}, 'https': {'vpprx': 0000}}
         token = 'TestToken'
-        handler = SlackHandler(token, '#channel', proxies)
+        SlackHandler(token, '#channel', proxies)
         mock.assert_called_with(token, proxies=proxies)
 
     def test_get_attachments(self):
@@ -100,14 +100,13 @@ class TestSlackHandler(TestCase):
         self.handler._send_file(record, file)
         mock_f.assert_called_with(file, 'r')
         mock_io.assert_called_with('data')
-        with open(file, 'r') as f:
-            mock.assert_called_with(
-                'files.upload',
-                channels='#channel',
-                initial_comment=self.handler.format(record),
-                filename=file.split('/')[-1:],
-                file='data',
-            )
+        mock.assert_called_with(
+            'files.upload',
+            channels='#channel',
+            initial_comment=self.handler.format(record),
+            filename=file.split('/')[-1:],
+            file='data',
+        )
 
     @mock.patch('dataf.logging_handlers.SlackHandler._send_file')
     def test_emit_with_file(self, mock):
@@ -129,4 +128,3 @@ class TestSlackHandler(TestCase):
         record = self._record
         self.handler.emit(record)
         mock.assert_called_with(record)
-

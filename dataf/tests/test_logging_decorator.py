@@ -43,26 +43,28 @@ class LoggingTestMethod:
     def err_simple_logger_method_without_log(self):
         raise Exception
 
-    @lambda_logger('debug',
-        start=lambda p, cls: 'Start:{}:{}'.format(cls.__class__.__name__, p)
+    @lambda_logger(
+        'debug', start=lambda p, cls: 'Start:{}:{}'.format(cls.__class__.__name__, p)
     )
     def lambda_logger_method_with_start(self, p):
         pass
 
-    @lambda_logger('debug',
-        end=lambda p, cls: 'End:{}:{}'.format(cls.__class__.__name__, p)
+    @lambda_logger(
+        'debug', end=lambda p, cls: 'End:{}:{}'.format(cls.__class__.__name__, p)
     )
     def lambda_logger_method_with_end(self, p):
         pass
 
-    @lambda_logger('debug',
+    @lambda_logger(
+        'debug',
         start=lambda p, cls: 'Start:{}:{}'.format(cls.__class__.__name__, p),
         end=lambda p, cls: 'End:{}:{}'.format(cls.__class__.__name__, p)
     )
     def lambda_logger_method_with_start_and_end(self, p):
         pass
 
-    @lambda_logger('debug',
+    @lambda_logger(
+        'debug',
         err=lambda p, cls: 'Err:{}:{}'.format(cls.__class__.__name__, p),
         log_err=True
     )
@@ -76,6 +78,7 @@ class LoggingTestMethod:
     @lambda_logger('debug', start=lambda cls: 'Start')
     def err_lambda_logger_method_without_log(self):
         raise Exception
+
 
 class TestLoggingDecorator(unittest.TestCase):
     """

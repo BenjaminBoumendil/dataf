@@ -33,7 +33,8 @@ class DatabaseManager:
      | dialect+driver://username:password@host:port/database
 
     Otherwise the url keyword arg must be provided with the following parameters.
-     - drivername – the name of the database backend. This name will correspond to a module in sqlalchemy/databases or a third party plug-in.
+     - drivername – the name of the database backend. This name will
+        correspond to a module in sqlalchemy/databases or a third party plug-in.
      - username – The user name.
      - password – database password.
      - host – The name of the host.

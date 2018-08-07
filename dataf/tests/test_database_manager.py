@@ -29,7 +29,8 @@ class EntityTest(BaseEntity):
     __table_args__ = {'schema': 'TestDatabaseManager'}
 
 
-class NonExistingEntity(BaseEntity): pass
+class NonExistingEntity(BaseEntity):
+    pass
 
 
 class TestDatabaseManager(unittest.TestCase):
@@ -297,7 +298,7 @@ class TestDatabaseManager(unittest.TestCase):
         Test create_table_obj on non existing table.
         """
         with self.assertRaises(Exception):
-            table = self.db.create_table_obj('table_test')
+            self.db.create_table_obj('table_test')
 
     # ENTITY_EXISTS
     def test_entity_exists(self):
