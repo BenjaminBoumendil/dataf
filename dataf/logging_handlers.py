@@ -37,7 +37,7 @@ class SlackHandler(logging.Handler):
         'WARNING': '#f07900',
     }
 
-    def __init__(self, token, channel, proxies):
+    def __init__(self, token, channel, proxies=None):
         logging.Handler.__init__(self)
         self.channel = channel
         self.slack = SlackClient(token, proxies=proxies)
@@ -55,7 +55,7 @@ class SlackHandler(logging.Handler):
 
     def _get_attachments(self, record):
         """
-        Format attachments for slack message.
+        Create attachments for slack message.
         """
         attachments = [{
             'text': self.format(record),

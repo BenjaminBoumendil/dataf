@@ -3,3 +3,4 @@ branch = True
 omit =
     */tests/*
     *__init__.py
+    venv/*
