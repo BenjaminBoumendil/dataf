@@ -25,6 +25,7 @@ class YamlConstructor:
     def simple_join(loader, node):
         """
         Yaml join list of string on empty string.
+        usage: !join [param, ...]
 
         :param obj loader: PyYaml Loader.
         :param obj node: Pyyaml node.
@@ -37,6 +38,7 @@ class YamlConstructor:
     def string_join(loader, node):
         """
         Yaml join list of string by given string as first param.
+        usage: !string_join [param, ...]
 
         :param obj loader: PyYaml Loader.
         :param obj node: Pyyaml node.

@@ -30,10 +30,13 @@ class DatabaseManager:
     Create a new Engine instance using a configuration dictionary.
     He must contains a key (assuming the default prefix) url, which provides
     the database URL.
-     | dialect+driver://username:password@host:port/database
+
+    .. code-block:: python
+
+        dialect+driver://username:password@host:port/database
 
     Otherwise the url keyword arg must be provided with the following parameters.
-     - drivername – the name of the database backend. This name will
+     - drivername – the name of the database backend. This name will\
         correspond to a module in sqlalchemy/databases or a third party plug-in.
      - username – The user name.
      - password – database password.

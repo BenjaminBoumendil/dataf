@@ -37,6 +37,6 @@ Settings
 
 A settings directory is created for all the project global settings, it contains:
 
-- A settings.py file with bunch of global and function, for more informations about those refer to the settings section from the documentation.
+- A settings.py file with bunch of globals and functions, for more informations about those refer to the settings section from the documentation.
 
-- Bunch of yaml files containing some basics configuration.
+- Bunch of yaml files containing some basic configurations.

@@ -20,12 +20,15 @@ class SlackHandler(logging.Handler):
     """
     Handler for slack.
     Use color dict attr for the message attachments.
-    color = {
-        'ERROR': '#F00', (RED)
-        'OTHER': '#3AA3E3', (BLUE)
-        'SLACK': '#00ff2b', (GREEN)
-        'WARNING': '#f07900', (YELLOW)
-    }
+
+    .. code-block:: python
+
+        color = {
+            'ERROR': '#F00', (RED)
+            'OTHER': '#3AA3E3', (BLUE)
+            'SLACK': '#00ff2b', (GREEN)
+            'WARNING': '#f07900', (YELLOW)
+        }
 
     :param str token: auth token for slack.
     :param str channel: channel name to post message.
