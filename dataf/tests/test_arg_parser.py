@@ -13,7 +13,8 @@ Test suite for arg_parser.
 import io
 import unittest
 import argparse
-from unittest.mock import patch
+import inspect
+from unittest import TestCase, mock
 from contextlib import redirect_stdout
 
 from dataf import ArgParser
@@ -42,7 +43,23 @@ class CustomSubParser:
         )
 
 
-class TestArgParserFunc(unittest.TestCase):
+def command_without_param():
+    pass
+
+
+def command_with_param(self, param):
+    pass
+
+
+def command_with_opt_param(param=None):
+    pass
+
+
+def command_with_annotation(param: ['a', 'b']):
+    pass
+
+
+class TestArgParserFunc(TestCase):
     """
     Test for ArgParser class with a function as command.
     """
@@ -94,7 +111,7 @@ class TestArgParserFunc(unittest.TestCase):
         """
         Test parse function.
         """
-        with patch('sys.argv', ['test', 'test']):
+        with mock.patch('sys.argv', ['test', 'test']):
             with self.assertRaises(NotImplementedError):
                 self.arg_parser.parse()
 
@@ -103,7 +120,7 @@ class TestArgParserFunc(unittest.TestCase):
         Test parse function without command.
         """
         f = io.StringIO()
-        with patch('sys.argv', ['test']):
+        with mock.patch('sys.argv', ['test']):
             with redirect_stdout(f):
                 self.arg_parser.parse()
         parse = f.getvalue()
@@ -208,3 +225,71 @@ class TestArgParserClass(TestArgParserFunc):
         """
         description = ArgParser._docstring_desc(None)
         self.assertEqual('', description)
+
+    @property
+    def _sub_pars(self):
+        """
+        Create a sub_parser object.
+        """
+        parser = argparse.ArgumentParser()
+        sub_parsers = parser.add_subparsers()
+        sub_pars = sub_parsers.add_parser('test')
+        return sub_pars
+
+    def test_setup_sub_parser_without_param(self):
+        """
+        Test _setup_sub_parser method with a command without param.
+        """
+        sub_pars = self._sub_pars
+        with mock.patch('dataf.arg_parser.argparse.ArgumentParser.add_argument') as m:
+            signature = inspect.signature(command_without_param)
+            docstring = self.arg_parser._docstring_args(
+                inspect.getdoc(command_without_param)
+            )
+            self.arg_parser._setup_sub_parser(sub_pars, signature, docstring)
+            m.assert_not_called()
+
+    def test_setup_sub_parser_with_param(self):
+        """
+        Test _setup_sub_parser method with a command with param.
+        """
+        sub_pars = self._sub_pars
+        with mock.patch('dataf.arg_parser.argparse.ArgumentParser.add_argument') as m:
+            sub_pars.set_defaults(command=command_with_param)
+            signature = inspect.signature(command_with_param)
+            docstring = self.arg_parser._docstring_args(
+                inspect.getdoc(command_with_param)
+            )
+            self.arg_parser._setup_sub_parser(sub_pars, signature, docstring)
+            m.assert_called_with('param', help='', metavar='param')
+
+    def test_setup_sub_parser_with_opt_param(self):
+        """
+        Test _setup_sub_parser method with a command with optional param.
+        """
+        sub_pars = self._sub_pars
+        with mock.patch('dataf.arg_parser.argparse.ArgumentParser.add_argument') as m:
+            signature = inspect.signature(command_with_opt_param)
+            docstring = self.arg_parser._docstring_args(
+                inspect.getdoc(command_with_opt_param)
+            )
+            self.arg_parser._setup_sub_parser(sub_pars, signature, docstring)
+            m.assert_called_with(
+                '--param', default=None, help='', metavar='param'
+            )
+
+    def test_setup_sub_parser_with_annotation(self):
+        """
+        Test _setup_sub_parser method with a command with param annotation.
+        """
+        sub_pars = self._sub_pars
+        with mock.patch('dataf.arg_parser.argparse.ArgumentParser.add_argument') as m:
+            signature = inspect.signature(command_with_annotation)
+            docstring = self.arg_parser._docstring_args(
+                inspect.getdoc(command_with_annotation)
+            )
+            self.arg_parser._setup_sub_parser(sub_pars, signature, docstring)
+            m.assert_called_with(
+                'param', choices=['a', 'b'],
+                help=' (choices: %(choices)s)', metavar='param'
+            )
