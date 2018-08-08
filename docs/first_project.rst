@@ -2,6 +2,9 @@ Your first project
 ==================
 
 
+You can use the project autogeneration to create a new project or just go from scratch and use the classes in the framework latter.
+
+
 Autogenerate project
 --------------------
 
@@ -32,4 +35,8 @@ For more information about the command parser and how to create more complex com
 Settings
 --------
 
-WIP
+A settings directory is created for all the project global settings, it contains:
+
+- A settings.py file with bunch of global and function, for more informations about those refer to the settings section from the documentation.
+
+- Bunch of yaml files containing some basics configuration.

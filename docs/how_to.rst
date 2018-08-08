@@ -81,7 +81,7 @@ With a class:
 
 Notice that we only pass the class in the commands dictionary, parser will instantiate and call the run method by itself, this is to avoid useless class instantiation.
 
-.. TIP:: If you need to give parameters to your class one option is to use `partial`_.
+.. TIP:: If you need to give parameters to your classe, one option is to use `partial`_.
 
 .. _partial: https://docs.python.org/3.6/library/functools.html#functools.partial
 
@@ -186,6 +186,7 @@ You can define a list of choices using annotation.
         def test_command(req_arg: _choices):
             pass
 
+
 Override sub parser behavior for a command
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -200,3 +201,27 @@ To define a custom sub parser behavior you must use a classe and define a 'setup
 .. _add_subparsers: https://docs.python.org/3.6/library/argparse.html#sub-commands
 
 .. _inspect.signature: https://docs.python.org/3.6/library/inspect.html#introspecting-callables-with-the-signature-object
+
+
+Create and customise your settings with yaml
+--------------------------------------------
+
+WIP
+
+
+Manipulating a database
+-----------------------
+
+WIP
+
+
+Create a web app
+----------------
+
+WIP
+
+
+Customise your logging
+----------------------
+
+WIP
