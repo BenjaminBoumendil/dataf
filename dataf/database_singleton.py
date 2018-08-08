@@ -24,9 +24,6 @@ class DatabaseSingleton:
         def __init__(self, db):
             self.db = db
 
-        def __str__(self):
-            return repr(self) + self.db
-
     _instance = None
 
     def __init__(self, configuration, prefix='', **kwargs):
