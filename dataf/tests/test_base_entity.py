@@ -21,8 +21,7 @@ class EmptyEntityTest(EmptyEntity):
     test = Column(Integer, primary_key=True)
 
 
-class BaseEntityTest(BaseEntity):
-    pass
+class BaseEntityTest(BaseEntity): pass
 
 
 class TestEmptyEntity(TestCase):

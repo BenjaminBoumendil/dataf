@@ -29,8 +29,7 @@ class EntityTest(BaseEntity):
     __table_args__ = {'schema': 'TestDatabaseManager'}
 
 
-class NonExistingEntity(BaseEntity):
-    pass
+class NonExistingEntity(BaseEntity): pass
 
 
 class TestDatabaseManager(unittest.TestCase):

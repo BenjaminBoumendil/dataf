@@ -42,20 +42,16 @@ class CustomSubParser:
         )
 
 
-def command_without_param():
-    pass
+def command_without_param(): pass
 
 
-def command_with_param(self, param):
-    pass
+def command_with_param(self, param): pass
 
 
-def command_with_opt_param(param=None):
-    pass
+def command_with_opt_param(param=None): pass
 
 
-def command_with_annotation(param: ['a', 'b']):
-    pass
+def command_with_annotation(param: ['a', 'b']): pass
 
 
 class TestArgParserFunc(TestCase):

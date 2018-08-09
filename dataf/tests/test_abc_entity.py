@@ -20,8 +20,7 @@ from dataf import BaseEntity, DatabaseManager
 from dataf.tests import settings
 
 
-class Entity(BaseEntity):
-    pass
+class Entity(BaseEntity): pass
 
 
 class EntityWithField(BaseEntity):

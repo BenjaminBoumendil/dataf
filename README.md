@@ -33,3 +33,12 @@ Quick install:
 Create project:
 
     dataf create_project name
+
+
+Install without pip:
+
+    git clone https://github.com/BenjaminBoumendil/dataf.git
+
+    make
+
+    pip install dataf/dist/dataf-0.0.1.tar.gz
