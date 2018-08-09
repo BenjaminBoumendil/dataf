@@ -64,7 +64,7 @@ class TestABCEntity(TestCase):
         self.assertEqual(ret, Entity)
 
     @mock.patch('sqlalchemy.schema.Table.drop')
-    def test_create(self, mock):
+    def test_drop(self, mock):
         """
         Test drop method.
         """
@@ -72,9 +72,8 @@ class TestABCEntity(TestCase):
         mock.assert_called_with(self.db.engine)
         self.assertEqual(ret, Entity)
 
-
     @mock.patch('sqlalchemy.schema.Table.exists', return_value=True)
-    def test_create(self, mock):
+    def test_exists(self, mock):
         """
         Test exists method.
         """

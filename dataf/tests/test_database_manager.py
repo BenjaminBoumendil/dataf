@@ -12,7 +12,7 @@ Test suite for database_manager.
 
 import unittest
 
-from sqlalchemy import Column, Text, Table, create_engine
+from sqlalchemy import Column, Text, Table, create_engine, engine
 from sqlalchemy.engine.base import Engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm.session import Session
@@ -82,11 +82,29 @@ class TestDatabaseManager(unittest.TestCase):
         """
         database_info = settings.DATABASE['test'].copy()
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception) as cm:
             DatabaseManager(database_info, database='bad_database')
+
+        self.assertEqual(cm.exception.message, 'Failed to connect to database')
+        self.assertEqual(cm.exception.logger.name, DatabaseManager.__module__)
 
         with self.assertRaises(Exception):
             DatabaseManager(None)
+
+    def test_init_with_url_arg(self):
+        """
+        Test __init__ method with url argument.
+        """
+        url = {
+            'drivername': 'postgresql',
+            'username': 'admin',
+            'password': 'password',
+            'host': 'localhost',
+            'port': 5432,
+            'database': 'test'
+        }
+        db = DatabaseManager({'url': 'bad_url'}, url=url)
+        self.assertEqual(db.engine.url, engine.url.URL(**url))
 
     # DATABASE_EXISTS
     def test_database_exists(self):

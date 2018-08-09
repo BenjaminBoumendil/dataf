@@ -11,7 +11,6 @@ Test suite for arg_parser.
 """
 
 import io
-import unittest
 import argparse
 import inspect
 from unittest import TestCase, mock

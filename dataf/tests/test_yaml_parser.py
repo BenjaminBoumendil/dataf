@@ -181,7 +181,10 @@ class TestYamlParser(TestCase):
         self.assertEqual(yaml_var, {'data': 'OK'})
         self.assertEqual(ret, self.yaml_parser)
 
-    @mock.patch('builtins.open', new_callable=mock.mock_open, read_data="{'prod': {'data': 'KO'}, 'dev': {'data': 'OK'}}")
+    @mock.patch(
+        'builtins.open', new_callable=mock.mock_open,
+        read_data="{'prod': {'data': 'KO'}, 'dev': {'data': 'OK'}}"
+    )
     def test_parse_with_dev_section(self, mock_open):
         """
         Test parse method with dev section in yaml loaded.

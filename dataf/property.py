@@ -10,8 +10,6 @@ Custom Property decorator.
 
 """
 
-from functools import wraps
-
 
 class classproperty:
     """

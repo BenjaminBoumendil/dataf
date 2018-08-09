@@ -23,7 +23,7 @@ class LoggingLevel:
     @staticmethod
     def slack(self, message, *args, **kwargs):
         """
-        Custon level for slack logging.
+        Custom level for slack logging.
         """
         self._log(LoggingLevel.name_to_level['SLACK'], message, args, **kwargs)
 
