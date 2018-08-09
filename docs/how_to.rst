@@ -86,10 +86,10 @@ Notice that we only pass the class in the commands dictionary, parser will insta
 .. _partial: https://docs.python.org/3.6/library/functools.html#functools.partial
 
 
-Having arguments for a command
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Setup command arguments
+^^^^^^^^^^^^^^^^^^^^^^^
 
-Command arguments is generated from the function signature, function required parameters will result in command function parameters and function optional parameters in command optional parameters.
+Command arguments is generated from the function signature, function required parameters will result in command arguments and function optional parameters in command optional arguments.
 
 .. code-block:: python
     :linenos:
@@ -151,7 +151,7 @@ Helper are generated from the function docstring, first line of docstring is for
 Define a list of choices for a command
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can define a list of choices using annotation.
+You can define a list of choices by using annotation.
 
 .. code-block:: python
     :linenos:

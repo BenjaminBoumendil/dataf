@@ -43,9 +43,11 @@ class DatabaseManager:
      - host – The name of the host.
      - port – The port number.
      - database – The database name.
-     - query – A dictionary of options to be passed to the dialect and/or the DBAPI upon connect.
+     - query – A dictionary of options to be passed to the dialect and/or
+        the DBAPI upon connect.
 
-    .. WARNING:: If url argument is provided it will override configuration url key.
+    .. WARNING:: If url argument is provided it will override configuration
+        url key but kwargs will override it.
 
     .. NOTE:: Engine is created with sqlalchemy.engine_from_config,
         url is created with sqlalchemy.engine.url.URL,

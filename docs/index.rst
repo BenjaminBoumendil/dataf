@@ -10,8 +10,8 @@ DataF is a Framework to create data oriented project in a fast way.
 
 - Data and database manipulation using SQLAlchemy.
 - Creating Web application using Flask.
-- Creating CLI using argparse.
-- Logging using logging.
+- Creating CLI.
+- Logging.
 - Clean settings using Yaml.
 
 .. toctree::
