@@ -45,28 +45,6 @@ class TestProperty(TestCase):
         """
         self.assertEqual(StaticPropertyTest().static_property, 'test_static_property')
 
-    def test_staticproperty_doc(self):
-        """
-        Test staticproperty doc attribute.
-        """
-        class t:
-            @property
-            def l(self):
-                """doc"""
-                return 'l'
-
-            @staticproperty
-            def f():
-                """doc"""
-                return 'f'
-
-        # import pdb; pdb.set_trace()
-        print(t.f.__doc__)
-        # print('f'.__doc__)
-        # print(t.l)
-        # print(StaticPropertyTest.static_property)
-        # self.assertEqual(StaticPropertyTest.static_property.__doc__, 'doc')
-
     def test_staticproperty_getter(self):
         """
         Test staticproperty getter method.

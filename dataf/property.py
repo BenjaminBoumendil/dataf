@@ -51,8 +51,6 @@ class staticproperty:
     def __get__(self, obj, objtype=None):
         if self.fget is None:
             raise AttributeError("unreadable attribute")
-        # ret = property(self.fget).__get__
-        # ret.__doc__ = self.__doc__
         return self.fget()
 
     def getter(self, fget):
