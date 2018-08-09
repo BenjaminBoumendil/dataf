@@ -18,12 +18,14 @@ from dataf import staticproperty, classproperty
 class StaticPropertyTest:
     @staticproperty
     def static_property():
+        """doc"""
         return 'test_static_property'
 
 
 class ClassPropertyTest:
     @classproperty
     def class_property(cls):
+        """doc"""
         return cls
 
 
@@ -43,6 +45,45 @@ class TestProperty(TestCase):
         """
         self.assertEqual(StaticPropertyTest().static_property, 'test_static_property')
 
+    def test_staticproperty_doc(self):
+        """
+        Test staticproperty doc attribute.
+        """
+        class t:
+            @property
+            def l(self):
+                """doc"""
+                return 'l'
+
+            @staticproperty
+            def f():
+                """doc"""
+                return 'f'
+
+        # import pdb; pdb.set_trace()
+        print(t.f.__doc__)
+        # print('f'.__doc__)
+        # print(t.l)
+        # print(StaticPropertyTest.static_property)
+        # self.assertEqual(StaticPropertyTest.static_property.__doc__, 'doc')
+
+    def test_staticproperty_getter(self):
+        """
+        Test staticproperty getter method.
+        """
+        func = lambda: 'getter'
+        ret = staticproperty().getter(func)
+        self.assertIsInstance(ret, staticproperty)
+        self.assertEqual(ret.fget, func)
+
+    def test_staticproperty_without_fget(self):
+        """
+        Test staticproperty without fget method.
+        """
+        p = staticproperty()
+        with self.assertRaises(AttributeError):
+            p.__get__('x')
+
     def test_classproperty_with_class(self):
         """
         Test for classproperty decorator with class.
@@ -54,3 +95,20 @@ class TestProperty(TestCase):
         Test for classproperty decorator with instance.
         """
         self.assertEqual(ClassPropertyTest().class_property, ClassPropertyTest)
+
+    def test_classproperty_getter(self):
+        """
+        Test classproperty getter method.
+        """
+        func = lambda: 'getter'
+        ret = classproperty().getter(func)
+        self.assertIsInstance(ret, classproperty)
+        self.assertEqual(ret.fget, func)
+
+    def test_classproperty_without_fget(self):
+        """
+        Test classproperty without fget method.
+        """
+        p = classproperty()
+        with self.assertRaises(AttributeError):
+            p.__get__('x')

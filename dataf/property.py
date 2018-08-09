@@ -13,39 +13,47 @@ Custom Property decorator.
 from functools import wraps
 
 
-class ClassProperty(property):
+class classproperty:
     """
     Decorator to set a property as classmethod.
+    Work only as getter.
 
     usage: @classproperty.
     """
-    def __get__(self, cls, owner):
-        return self.fget.__get__(None, owner)()
+    def __init__(self, fget=None, doc=None):
+        self.fget = fget
+        if doc is None and fget is not None:
+            doc = fget.__doc__
+        self.__doc__ = doc
+
+    def __get__(self, obj, objtype=None):
+        if self.fget is None:
+            raise AttributeError("unreadable attribute")
+        return self.fget(objtype)
+
+    def getter(self, fget):
+        return type(self)(fget, self.__doc__)
 
 
-class StaticProperty(property):
+class staticproperty:
     """
     Decorator to set a property as staticmethod.
+    Work only as getter.
 
     usage: @staticproperty.
     """
-    def __get__(self, cls, owner):
-        return self.fget.__get__(owner)()
+    def __init__(self, fget=None, doc=None):
+        self.fget = fget
+        if doc is None and fget is not None:
+            doc = fget.__doc__
+        self.__doc__ = doc
 
+    def __get__(self, obj, objtype=None):
+        if self.fget is None:
+            raise AttributeError("unreadable attribute")
+        # ret = property(self.fget).__get__
+        # ret.__doc__ = self.__doc__
+        return self.fget()
 
-def staticproperty(func):
-    @wraps(func)
-    @StaticProperty
-    @staticmethod
-    def _wrapper(*args, **kwargs):
-        return func(*args, **kwargs)
-    return _wrapper
-
-
-def classproperty(func):
-    @wraps(func)
-    @ClassProperty
-    @classmethod
-    def _wrapper(*args, **kwargs):
-        return func(*args, **kwargs)
-    return _wrapper
+    def getter(self, fget):
+        return type(self)(fget, self.__doc__)
