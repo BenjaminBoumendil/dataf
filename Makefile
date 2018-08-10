@@ -19,13 +19,15 @@ doc:
 venv:
 	virtualenv --python=python3 venv
 	venv/bin/pip install dist/dataf-0.0.1.tar.gz
+	venv/bin/pip install psycopg2-binary
+	venv/bin/pip install codecov
 
 test:
 	venv/bin/python -m unittest $(arg)
 
 cov:
-	coverage run -m unittest discover
-	coverage html
+	venv/bin/coverage run -m unittest discover
+	venv/bin/coverage html
 
 clean:
 	rm -rf dist
