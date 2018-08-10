@@ -10,7 +10,7 @@ Test suite for database_manager.
 
 """
 
-import unittest
+from unittest import TestCase, mock
 
 from sqlalchemy import Column, Text, Table, create_engine, engine
 from sqlalchemy.engine.base import Engine
@@ -32,7 +32,7 @@ class EntityTest(BaseEntity):
 class NonExistingEntity(BaseEntity): pass
 
 
-class TestDatabaseManager(unittest.TestCase):
+class TestDatabaseManager(TestCase):
     """
     Test for DatabaseManager class.
     """
@@ -79,10 +79,8 @@ class TestDatabaseManager(unittest.TestCase):
         """
         Test if __init__ raise exception with bad database info.
         """
-        database_info = settings.DATABASE['test'].copy()
-
         with self.assertRaises(Exception) as cm:
-            DatabaseManager(database_info, database='bad_database')
+            DatabaseManager(settings.DATABASE['test'], database='bad_database')
 
         self.assertEqual(cm.exception.message, 'Failed to connect to database')
         self.assertEqual(cm.exception.logger.name, DatabaseManager.__module__)
@@ -138,6 +136,29 @@ class TestDatabaseManager(unittest.TestCase):
         with self.assertRaises(Exception):
             with self.db.session(raise_err=True) as session:
                 session.query(None).all()
+
+    @mock.patch('sqlalchemy.orm.session.Session.rollback')
+    def test_session_without_raise_err(self, mock):
+        """
+        Test session with raise_err at False.
+        """
+        with self.db.session(raise_err=False) as session:
+            session.delete(EntityTest(id=1))
+        mock.assert_called_with()
+
+    @mock.patch('sqlalchemy.orm.scoping.scoped_session.configure')
+    def test_session_with_session_config(self, mock):
+        """
+        Test session with session_config.
+        """
+        self.db.Session.registry.clear()
+        config = {
+            'autocommit': True,
+            'expire_on_commit': True
+        }
+        with self.db.session(session_config=config):
+            pass
+        mock.assert_called_with(**config)
 
     # CREATE_SCHEMA
     def test_create_schema(self):
@@ -271,6 +292,18 @@ class TestDatabaseManager(unittest.TestCase):
         entity = EntityTest(id=1)
         with self.assertRaises(Exception):
             self.db.delete(entity)
+
+    @mock.patch('sqlalchemy.orm.session.Session.flush')
+    @mock.patch('sqlalchemy.orm.session.Session.delete')
+    @mock.patch('sqlalchemy.orm.session.Session.merge', return_value='merge_return')
+    def test_delete_with_merge(self, mock_merge, mock_del, _):
+        """
+        Test delete method with merge True.
+        """
+        entity = EntityTest(id=1)
+        self.db.delete(entity, merge=True)
+        mock_merge.assert_called_with(entity)
+        mock_del.assert_called_with('merge_return')
 
     # MAP_TABLE
     def test_map_tables(self):
@@ -449,3 +482,17 @@ class TestDatabaseManager(unittest.TestCase):
             result = session.query(EntityTest).all()
 
         self.assertEqual(len(result), len(data))
+
+    @mock.patch('sqlalchemy.orm.session.Session.execute')
+    def test_bulk_insert_mappings_core_chunk(self, mock):
+        """
+        Test bulk_insert_mappings_core chunk corectly.
+        """
+        data = [
+            {'text': 'text1'},
+            {'text': 'text2'},
+            {'text': 'text3'},
+            {'text': 'text4'},
+        ]
+        self.db.bulk_insert_mappings_core(EntityTest, data, 2)
+        self.assertEqual(mock.call_count, len(data) / 2)
