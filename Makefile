@@ -4,8 +4,6 @@ DOC_DIR = docs
 
 UPLOAD_URL = https://test.pypi.org/legacy/
 
-TESTS_DIR = dataf.tests.
-
 
 install:
 	python3 setup.py sdist bdist_wheel
@@ -25,7 +23,7 @@ venv:
 	venv/bin/pip install codecov
 
 test:
-	venv/bin/python -m unittest $(TESTS_DIR)$(filter-out $@,$(MAKECMDGOALS))
+	venv/bin/python -m unittest $(filter-out $@,$(MAKECMDGOALS))
 
 %:
 	@:
