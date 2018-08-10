@@ -37,5 +37,10 @@ clean:
 	rm -rf coverage.xml
 	rm -rf .coverage
 	rm -rf htmlcov
+	rm -rf docs/_build/
+	rm -rf docs/_static/
+	rm -rf docs/_templates/
+	rm -rf **/__pycache__
+	rm -rf venv
 
 re: clean install
