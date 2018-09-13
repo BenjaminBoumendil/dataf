@@ -26,7 +26,7 @@ class DatabaseSingleton:
 
     _instance = None
 
-    def __init__(self, configuration, prefix='', **kwargs):
+    def __init__(self, configuration, *, url=None, prefix='', **kwargs):
         """
         Init DatabaseManager if not exists.
 
@@ -39,7 +39,7 @@ class DatabaseSingleton:
         """
         if not DatabaseSingleton._instance:
             DatabaseSingleton._instance = DatabaseSingleton._DatabaseSingleton(
-                DatabaseManager(configuration, prefix=prefix, **kwargs)
+                DatabaseManager(configuration, url=url, prefix=prefix, **kwargs)
             )
 
     def __getattr__(self, name):
