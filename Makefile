@@ -2,14 +2,12 @@
 
 DOC_DIR = docs
 
-UPLOAD_URL = https://test.pypi.org/legacy/
-
 
 install:
 	python3 setup.py sdist bdist_wheel
 
 upload:
-	twine upload --repository-url $(UPLOAD_URL) dist/*
+	twine upload dist/*
 
 doc:
 	mkdir -p $(shell pwd)/$(DOC_DIR)/_static
