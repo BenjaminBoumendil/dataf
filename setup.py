@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="dataf",
-    version="0.0.1",
+    version="0.0.2",
     author="Boumendil Benjamin",
     author_email="benjamin.boumendil@gmail.com",
     description="Create project to manipulate data.",
