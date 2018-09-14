@@ -32,7 +32,7 @@ class ArgParser:
             sub_pars = sub_parsers.add_parser(
                 name, help=self._docstring_desc(func_docstring)
             )
-            sub_pars.set_defaults(command=exec)
+            sub_pars.set_defaults(_command=exec)
             func_signature = inspect.signature(func)
             docstring_args = self._docstring_args(func_docstring)
             if hasattr(exec, 'setup_sub_parser'):
@@ -102,13 +102,13 @@ class ArgParser:
         Parse command argument and execute the command, print helper if no command.
         """
         args = self.parser.parse_args()
-        if hasattr(args, 'command'):
+        if hasattr(args, '_command'):
             command_args = dict(filter(
-                lambda x: x[0] != 'command', args.__dict__.items()
+                lambda x: x[0] != '_command', args.__dict__.items()
             ))
-            if inspect.isclass(args.command):
-                args.command().run(**command_args)
+            if inspect.isclass(args._command):
+                args._command().run(**command_args)
             else:
-                args.command(**command_args)
+                args._command(**command_args)
         else:
             self.parser.print_help()

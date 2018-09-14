@@ -15,7 +15,7 @@ import unittest
 from dataf import LvlFilter
 
 
-class TestRecord:
+class Record:
     def __init__(self, lvl):
         self.levelno = lvl
 
@@ -39,23 +39,23 @@ class TestLvlFilter(unittest.TestCase):
         """
         Test filter method with level equal to low value.
         """
-        self.assertTrue(self.lvl_filter.filter(TestRecord(2)))
+        self.assertTrue(self.lvl_filter.filter(Record(2)))
 
     def test_fitler_with_highest_value(self):
         """
         Test filter method with level equal to high value.
         """
-        self.assertTrue(self.lvl_filter.filter(TestRecord(4)))
+        self.assertTrue(self.lvl_filter.filter(Record(4)))
 
     def test_fitler_with_inbound_value(self):
         """
         Test filter method with value between low and high.
         """
-        self.assertTrue(self.lvl_filter.filter(TestRecord(3)))
+        self.assertTrue(self.lvl_filter.filter(Record(3)))
 
     def test_fitler_with_outbound_value(self):
         """
         Test filter method with value greater than high and lower than low.
         """
-        self.assertFalse(self.lvl_filter.filter(TestRecord(1)))
-        self.assertFalse(self.lvl_filter.filter(TestRecord(5)))
+        self.assertFalse(self.lvl_filter.filter(Record(1)))
+        self.assertFalse(self.lvl_filter.filter(Record(5)))
