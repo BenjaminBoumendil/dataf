@@ -1,12 +1,9 @@
-host_name: &HOST_NAME !!python/object/apply:socket.gethostname []
-
 prod:
     template:
         info:
             title: ${project_name.capitalize()} API
             contact:
                 Slack: slack-channel
-        host: !!python/object/apply:socket.gethostbyname [*HOST_NAME]
 
     config:
         headers: []

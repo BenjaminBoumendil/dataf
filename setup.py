@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="dataf",
-    version="0.0.2",
+    version="0.0.3",
     author="Boumendil Benjamin",
     author_email="benjamin.boumendil@gmail.com",
     description="Create project to manipulate data.",
@@ -23,7 +23,7 @@ setuptools.setup(
     python_requires='>=3.5',
     install_requires=[
         'SQLAlchemy', 'PyYAML', 'slackclient', 'flask', 'flasgger',
-        'docutils', 'mako',
+        'docutils', 'mako', 'alembic'
     ],
     entry_points={
         'console_scripts': ['dataf=dataf.command_line:main']

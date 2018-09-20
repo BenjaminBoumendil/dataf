@@ -7,6 +7,7 @@
 DataF is a framework to create data oriented project in a fast way.
 
 - Data and database manipulation using SQLAlchemy.
+- Database migration with alembic.
 - Creating Web application using Flask.
 - Creating CLI.
 - Clean settings using Yaml.
@@ -22,6 +23,7 @@ Dependencies:
 - flasgger
 - docutils
 - mako
+- alembic
 
 
 Quick install:

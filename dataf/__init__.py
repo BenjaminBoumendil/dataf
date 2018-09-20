@@ -10,3 +10,4 @@ from dataf.flask_engine import FlaskEngine
 from dataf.arg_parser import ArgParser
 from dataf.abc_entity import ABCEntity
 from dataf.base_entity import BaseEntity, EmptyEntity
+from dataf.migration_engine import MigrationEngine

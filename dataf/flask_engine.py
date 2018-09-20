@@ -19,14 +19,13 @@ from flasgger import Swagger
 class FlaskEngine:
     """
     Handle flask app with swagger.
+    Load all view from views dictionary with key 'cls'.
+    You can define REST method in they 'method' key.
+
+    :param dict views: Web views data.
+    :param dict swagger_config: swagger configuration.
     """
     def __init__(self, views, swagger_config):
-        """
-        Add all view in VIEWS to app and init swagger config.
-
-        :param dict views: Web views data.
-        :param dict swagger_config: swagger configuration.
-        """
         self.app = Flask(__name__)
         self.swagger = Swagger(self.app, **swagger_config)
         for url, view in views.items():
@@ -48,6 +47,6 @@ class FlaskEngine:
 
     def run(self):
         """
-        Main logic, used by CLI.
+        Run the flask app with debug.
         """
         self.app.run(debug=True)
