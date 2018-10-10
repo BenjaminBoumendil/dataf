@@ -21,6 +21,7 @@ class LvlFilter(logging.Filter):
     :param int high: high level value.
     """
     def __init__(self, low, high):
+        super().__init__()
         self.low = low
         self.high = high
 

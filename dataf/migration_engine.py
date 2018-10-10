@@ -49,7 +49,7 @@ class MigrationEngine:
     ]
     def run(self, command: _command_annotation, revision=None):
         """
-        Powerpot database migration.
+        Run the migration engine.
 
         :param str command: command to execute.
         :param str revision: migration revision code.
