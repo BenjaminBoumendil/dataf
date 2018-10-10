@@ -3,6 +3,7 @@
 [![Documentation Status](https://readthedocs.org/projects/dataf/badge/?version=latest)](https://dataf.readthedocs.io/en/latest/?badge=latest) [![Build Status](https://travis-ci.org/BenjaminBoumendil/dataf.svg?branch=master)](https://travis-ci.org/BenjaminBoumendil/dataf) [![codecov](https://codecov.io/gh/BenjaminBoumendil/dataf/branch/master/graph/badge.svg)](https://codecov.io/gh/BenjaminBoumendil/dataf)
 [![PyPI](https://img.shields.io/pypi/v/dataf.svg)](https://pypi.org/project/dataf/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dataf.svg)](https://pypi.org/project/dataf/)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/BenjaminBoumendil/dataf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/BenjaminBoumendil/dataf/context:python)
 
 DataF is a framework to create data oriented project in a fast way.
 
